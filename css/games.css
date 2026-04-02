@@ -27,40 +27,55 @@
 }
 .game-launch-btn:hover { transform:translateY(-3px); filter:brightness(1.1); }
 
-/* ── MATCH GAME (Health Hero) ── */
-.match-grid      { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
-.match-col-ttl   { font-size:11px; font-weight:900; color:var(--mid-text); text-align:center; margin-bottom:8px; text-transform:uppercase; letter-spacing:.8px; }
-.match-item      { background:#f8f9fa; border-radius:12px; padding:11px 8px; text-align:center; cursor:pointer; border:3px solid transparent; transition:all .22s; margin-bottom:9px; }
-.match-item:last-child { margin-bottom:0; }
-.match-item:hover { transform:scale(1.04); }
-.match-item.selected { border-color:var(--blue); background:rgba(33,150,243,.1); transform:scale(1.05); }
-.match-item.matched  { border-color:var(--green); background:rgba(76,175,80,.1); pointer-events:none; opacity:.75; }
-.match-item.wrong    { border-color:var(--red); animation:itemShake .45s ease-out; }
-@keyframes itemShake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-7px)} 75%{transform:translateX(7px)} }
-.match-ico  { font-size:28px; display:block; margin-bottom:5px; }
-.match-lbl  { font-size:11px; font-weight:800; color:var(--dark-text); line-height:1.35; }
-.match-score { text-align:center; font-size:13px; font-weight:900; color:var(--blue); margin-bottom:12px; }
+/* ── MATCH GAME — Drag & Drop (Health Hero) ── */
+.match-col-ttl { font-size:11px; font-weight:900; color:var(--mid-text); text-align:center; margin-bottom:8px; text-transform:uppercase; letter-spacing:.8px; }
+.match-score   { text-align:center; font-size:13px; font-weight:900; color:var(--blue); margin-bottom:12px; }
+.match-ico     { font-size:28px; display:block; margin-bottom:5px; }
+.match-lbl     { font-size:11px; font-weight:800; color:var(--dark-text); line-height:1.35; }
 
-/* ── SORT GAME (Planet Protector) ── */
-.sort-cats  { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:16px; }
-.sort-cat   { border-radius:14px; padding:12px 6px; text-align:center; cursor:pointer; border:3px solid transparent; transition:all .22s; position:relative; }
-.sort-cat.target        { border-color:var(--blue); transform:scale(1.05); box-shadow:0 4px 16px rgba(33,150,243,.3); }
-.sort-cat.correct-flash { animation:correctFlash .5s ease-out; }
-@keyframes correctFlash { 0%{transform:scale(1)} 50%{transform:scale(1.12)} 100%{transform:scale(1)} }
-.sort-cat-ico   { font-size:30px; display:block; }
-.sort-cat-lbl   { font-size:10px; font-weight:900; margin-top:4px; }
-.sort-cat-count {
-  position:absolute; top:-6px; right:-6px; background:var(--blue); color:white;
-  border-radius:50%; width:20px; height:20px;
-  font-size:10px; font-weight:900; display:flex; align-items:center; justify-content:center;
-}
-.sort-items { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:14px; min-height:50px; }
-.sort-item  { background:white; border-radius:50px; padding:8px 14px; cursor:pointer; border:3px solid #e0e0e0; transition:all .22s; font-size:13px; font-weight:800; display:flex; align-items:center; gap:6px; }
-.sort-item:hover    { border-color:var(--blue); transform:scale(1.05); }
-.sort-item.selected { border-color:var(--blue); background:rgba(33,150,243,.1); }
-.sort-item.sorted   { opacity:.25; pointer-events:none; }
-.sort-item.wrong    { border-color:var(--red); animation:itemShake .45s ease-out; }
+.match-probs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:4px; }
+.match-prob  { background:#f8f9fa; border-radius:12px; padding:14px 8px; text-align:center;
+               cursor:grab; border:3px solid #e0e0e0; transition:all .22s; }
+.match-prob:active  { cursor:grabbing; }
+.match-prob.matched { border-color:var(--green); background:rgba(76,175,80,.12); opacity:.65; pointer-events:none; }
+.match-prob.wrong   { border-color:var(--red); animation:itemShake .45s ease-out; }
+
+.match-zones { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+.match-zone  { background:#f0f4ff; border-radius:12px; padding:14px 8px; text-align:center;
+               border:3px dashed #c5cae9; transition:all .22s;
+               min-height:82px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.match-zone.drag-over { border-color:var(--blue); background:rgba(33,150,243,.1); transform:scale(1.05); border-style:solid; }
+.match-zone.matched   { border-color:var(--green); background:rgba(76,175,80,.1); border-style:solid; }
+
+@keyframes itemShake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-7px)} 75%{transform:translateX(7px)} }
+
+/* ── SORT GAME — Drag & Drop (Planet Protector) ── */
 .sort-score { text-align:center; font-size:13px; font-weight:900; color:var(--green-dark); margin-bottom:12px; }
+.sort-items { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:14px; min-height:50px; }
+.sort-item  { background:white; border-radius:50px; padding:8px 14px; cursor:grab;
+              border:3px solid #e0e0e0; transition:all .22s; font-size:13px; font-weight:800;
+              display:flex; align-items:center; gap:6px; }
+.sort-item:active  { cursor:grabbing; }
+.sort-item.sorted  { opacity:.25; pointer-events:none; }
+.sort-item.wrong   { border-color:var(--red); animation:itemShake .45s ease-out; }
+
+.sort-zones { display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+.sort-zone  { border-radius:14px; padding:12px; border:3px dashed #ccc; transition:all .22s; }
+.sort-zone.drag-over   { border-color:var(--blue) !important; transform:scale(1.02);
+                         box-shadow:0 4px 16px rgba(33,150,243,.3); border-style:solid !important; }
+.sort-zone.correct-flash { animation:correctFlash .5s ease-out; }
+@keyframes correctFlash { 0%{transform:scale(1)} 50%{transform:scale(1.04)} 100%{transform:scale(1)} }
+
+.sort-zone-head  { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.sort-cat-ico    { font-size:24px; }
+.sort-cat-lbl    { font-size:12px; font-weight:900; flex:1; }
+.sort-cat-count  { background:var(--blue); color:white; border-radius:50%;
+                   width:22px; height:22px; font-size:11px; font-weight:900;
+                   display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.sort-zone-chips { display:flex; flex-wrap:wrap; gap:5px; min-height:0; }
+.sort-chip       { background:rgba(255,255,255,.85); border-radius:50px; padding:4px 10px;
+                   font-size:11px; font-weight:800; border:2px solid rgba(0,0,0,.1);
+                   animation:dropPop .3s ease-out; }
 
 /* ── SCENARIO GAME (Smart Helper) ── */
 .sc-counter  { font-size:13px; font-weight:800; color:var(--mid-text); text-align:center; margin-bottom:12px; }

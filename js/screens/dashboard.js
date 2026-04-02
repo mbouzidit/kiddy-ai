@@ -16,6 +16,7 @@ function initLabBg() {
 }
 
 function loadDash() {
+  hideResetConfirm();
   initLabBg();
   const L = T[S.lang] || T.en;
 
