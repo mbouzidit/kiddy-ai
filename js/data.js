@@ -128,6 +128,9 @@ en: {
   reset_yes:"Yes, reset everything",
   welcome:"Welcome, {n}! 🎉 +50 XP",
   badge_prefix:"🏅 Badge earned:",
+  bdg_popup_earned:"✅ Earned!",
+  bdg_popup_locked:"🔒 Not yet earned",
+  bdg_popup_how:"How to earn:",
   a11y_back:"Go back",
   a11y_lang_en:"Switch to English",
   a11y_lang_fr:"Switch to French",
@@ -280,6 +283,9 @@ fr: {
   reset_yes:"Oui, tout réinitialiser",
   welcome:"Bienvenue, {n} ! 🎉 +50 XP",
   badge_prefix:"🏅 Badge gagné :",
+  bdg_popup_earned:"✅ Obtenu !",
+  bdg_popup_locked:"🔒 Pas encore obtenu",
+  bdg_popup_how:"Comment l'obtenir :",
   a11y_back:"Retour",
   a11y_lang_en:"Passer en anglais",
   a11y_lang_fr:"Passer en français",
@@ -321,17 +327,17 @@ const LEVELS = [
 
 /* ── BADGES ── */
 const BADGES = [
-  { id:'first-steps',    name:'First Steps',    name_fr:'Premiers Pas',      ico:'👣', bg:'#FFF9C4', bdr:'#FFD700' },
-  { id:'ai-explorer',    name:'AI Explorer',    name_fr:'Explorateur IA',    ico:'🔭', bg:'#E3F2FD', bdr:'#2196F3' },
-  { id:'health-hero',    name:'Health Hero',    name_fr:'Héros Santé',       ico:'❤️',  bg:'#FCE4EC', bdr:'#E91E63' },
-  { id:'planet-pro',     name:'Planet Pro',     name_fr:'Pro Planète',       ico:'🌍', bg:'#E8F5E9', bdr:'#4CAF50' },
-  { id:'smart-helper',   name:'Smart Helper',   name_fr:'Aide Intelligent',  ico:'🤝', bg:'#FFF3E0', bdr:'#FF9800' },
-  { id:'nav-master',     name:'Nav Master',     name_fr:'Maître Navigateur', ico:'🤖', bg:'#EDE7F6', bdr:'#7E57C2' },
-  { id:'mission-master', name:'Mission Master', name_fr:'Maître Mission',    ico:'🏆', bg:'#F3E5F5', bdr:'#9C27B0' },
-  { id:'data-detective', name:'Data Detective', name_fr:'Détective Data',    ico:'🔍', bg:'#E0F7FA', bdr:'#00BCD4' },
-  { id:'robot-trainer',  name:'Robot Trainer',  name_fr:'Entraîneur Robot',  ico:'🤖', bg:'#E8EAF6', bdr:'#3F51B5' },
-  { id:'quiz-starter',   name:'Quiz Starter',   name_fr:'Lanceur Quiz',      ico:'🎯', bg:'#FBE9E7', bdr:'#FF5722' },
-  { id:'ai-genius',      name:'AI Genius',      name_fr:'Génie IA',          ico:'🧠', bg:'#EDE7F6', bdr:'#673AB7' }
+  { id:'first-steps',    name:'First Steps',    name_fr:'Premiers Pas',      ico:'👣', bg:'#FFF9C4', bdr:'#FFD700', desc:'You created your profile — welcome to AI Lab!',     desc_fr:'Tu as créé ton profil — bienvenue dans l\'IA Lab !' },
+  { id:'ai-explorer',    name:'AI Explorer',    name_fr:'Explorateur IA',    ico:'🔭', bg:'#E3F2FD', bdr:'#2196F3', desc:'Visit the Missions screen for the first time.',      desc_fr:'Visite l\'écran Missions pour la première fois.' },
+  { id:'health-hero',    name:'Health Hero',    name_fr:'Héros Santé',       ico:'❤️',  bg:'#FCE4EC', bdr:'#E91E63', desc:'Complete the Health Hero mini-game.',                desc_fr:'Termine le mini-jeu Héros de la Santé.' },
+  { id:'planet-pro',     name:'Planet Pro',     name_fr:'Pro Planète',       ico:'🌍', bg:'#E8F5E9', bdr:'#4CAF50', desc:'Complete the Planet Protector mini-game.',           desc_fr:'Termine le mini-jeu Protecteur de la Planète.' },
+  { id:'smart-helper',   name:'Smart Helper',   name_fr:'Aide Intelligent',  ico:'🤝', bg:'#FFF3E0', bdr:'#FF9800', desc:'Complete the Smart Helper mini-game.',               desc_fr:'Termine le mini-jeu Aide Intelligent.' },
+  { id:'nav-master',     name:'Nav Master',     name_fr:'Maître Navigateur', ico:'🤖', bg:'#EDE7F6', bdr:'#7E57C2', desc:'Complete the Robot Navigator maze game.',            desc_fr:'Termine le jeu de labyrinthe Navigateur Robot.' },
+  { id:'mission-master', name:'Mission Master', name_fr:'Maître Mission',    ico:'🏆', bg:'#F3E5F5', bdr:'#9C27B0', desc:'Complete all 3 missions!',                          desc_fr:'Termine les 3 missions !' },
+  { id:'data-detective', name:'Data Detective', name_fr:'Détective Data',    ico:'🔍', bg:'#E0F7FA', bdr:'#00BCD4', desc:'Complete the Training Workshop.',                   desc_fr:'Termine l\'Atelier d\'Entraînement.' },
+  { id:'robot-trainer',  name:'Robot Trainer',  name_fr:'Entraîneur Robot',  ico:'🤖', bg:'#E8EAF6', bdr:'#3F51B5', desc:'Complete the Training Workshop.',                   desc_fr:'Termine l\'Atelier d\'Entraînement.' },
+  { id:'quiz-starter',   name:'Quiz Starter',   name_fr:'Lanceur Quiz',      ico:'🎯', bg:'#FBE9E7', bdr:'#FF5722', desc:'Complete any quiz.',                                desc_fr:'Termine n\'importe quel quiz.' },
+  { id:'ai-genius',      name:'AI Genius',      name_fr:'Génie IA',          ico:'🧠', bg:'#EDE7F6', bdr:'#673AB7', desc:'Score 5 out of 5 on the quiz!',                    desc_fr:'Obtiens 5 sur 5 au quiz !' }
 ];
 
 /* ── AVATARS ── */
@@ -1007,10 +1013,10 @@ const PLANET_DATA_BY_MODE = {
 
 /* ── EXPERT BADGES ── */
 const BADGES_EXPERT = [
-  { id:'bias-buster',     name:'Bias Buster',     name_fr:'Chasseur de Biais', ico:'🔐', bg:'#E8EAF6', bdr:'#3F51B5' },
-  { id:'neural-master',   name:'Neural Master',   name_fr:'Maître Neural',     ico:'🧠', bg:'#EDE7F6', bdr:'#673AB7' },
-  { id:'adversarial-pro', name:'Adversarial Pro', name_fr:'Pro Adversarial',   ico:'🎯', bg:'#FBE9E7', bdr:'#FF5722' },
-  { id:'ethics-guardian', name:'Ethics Guardian', name_fr:'Gardien Éthique',   ico:'⚖️', bg:'#E0F2F1', bdr:'#009688' }
+  { id:'bias-buster',     name:'Bias Buster',     name_fr:'Chasseur de Biais', ico:'🔐', bg:'#E8EAF6', bdr:'#3F51B5', desc:'Get a perfect score on the Spot the Bias game.',         desc_fr:'Obtiens un score parfait au jeu Détecteur de Biais.' },
+  { id:'neural-master',   name:'Neural Master',   name_fr:'Maître Neural',     ico:'🧠', bg:'#EDE7F6', bdr:'#673AB7', desc:'Coming soon — a new expert challenge awaits!',           desc_fr:'Bientôt disponible — un nouveau défi expert t\'attend !' },
+  { id:'adversarial-pro', name:'Adversarial Pro', name_fr:'Pro Adversarial',   ico:'🎯', bg:'#FBE9E7', bdr:'#FF5722', desc:'Get a perfect score on the Adversarial Challenge game.', desc_fr:'Obtiens un score parfait au jeu Défi Adversarial.' },
+  { id:'ethics-guardian', name:'Ethics Guardian', name_fr:'Gardien Éthique',   ico:'⚖️', bg:'#E0F2F1', bdr:'#009688', desc:'Coming soon — explore AI ethics challenges!',            desc_fr:'Bientôt disponible — explore les défis éthiques de l\'IA !' }
 ];
 
 /* ── SPOT THE BIAS SCENARIOS ── */

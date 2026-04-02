@@ -15,6 +15,18 @@
 <canvas id="confetti-canvas"></canvas>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+<!-- BADGE INFO POPUP -->
+<div id="bdg-popup-overlay" class="bdg-popup-overlay" style="display:none" onclick="hideBadgePopup()">
+  <div class="bdg-popup" onclick="event.stopPropagation()">
+    <button class="bdg-popup-close" onclick="hideBadgePopup()">✕</button>
+    <div class="bdg-popup-circle" id="bdg-popup-circle"></div>
+    <div class="bdg-popup-name"   id="bdg-popup-name"></div>
+    <div class="bdg-popup-status" id="bdg-popup-status"></div>
+    <div class="bdg-popup-how"    id="bdg-popup-how"></div>
+    <div class="bdg-popup-desc"   id="bdg-popup-desc"></div>
+  </div>
+</div>
+
 <!-- LANG TOGGLE -->
 <div id="lang-toggle">
   <button id="mute-btn" class="lang-btn" onclick="toggleMute()" aria-label="Mute sound" aria-pressed="false">🔊</button>

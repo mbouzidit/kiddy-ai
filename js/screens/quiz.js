@@ -132,7 +132,6 @@ function checkAnswer(ans, q) {
   const correct = ans === q.correct;
   if (correct) { S.qScore++; addXP(50); }
   playSound(correct ? 'correct' : 'wrong');
-  speak(correct ? t('tts_correct') : t('tts_wrong'));
 
   // Highlight buttons
   if (q.type === 'tf') {
@@ -159,6 +158,7 @@ function checkAnswer(ans, q) {
   const L    = S.lang;
   const expl = (L === 'fr' && q.expl_fr) ? q.expl_fr : q.expl;
   setFeedback(correct ? '✅' : '❌', correct ? 'ok' : 'no', correct ? t('qz_correct') : t('qz_wrong'), expl);
+  speak((correct ? t('tts_correct') : t('tts_wrong')) + '. ' + expl);
 
   // Animate star
   if (correct) {

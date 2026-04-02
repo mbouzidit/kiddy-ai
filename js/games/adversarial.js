@@ -66,7 +66,6 @@ function _checkAdv(idx) {
   const ok  = sc.opts[idx].ok;
   if (ok) advCorrect++;
   playSound(ok ? 'correct' : 'wrong');
-  speak(ok ? t('adv_correct') : t('adv_wrong'));
 
   const fb = document.getElementById('adv-fb');
   if (fb) {
@@ -75,6 +74,7 @@ function _checkAdv(idx) {
       <div class="fb-txt ${ok ? 'ok' : 'no'}"><strong>${ok ? t('adv_correct') : t('adv_wrong')}</strong></div>
       <div class="fb-expl">${expl}</div>`;
     fb.style.display = 'block';
+    speak((ok ? t('adv_correct') : t('adv_wrong')) + '. ' + expl);
   }
 
   document.querySelectorAll('.adv-btn').forEach(b => b.disabled = true);

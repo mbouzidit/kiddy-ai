@@ -81,30 +81,29 @@ function scPick(idx) {
   scState.answered = true;
   const s = HELPER_SCENARIOS[scState.current];
 
+  const isOk = s.opts[idx].ok;
   s.opts.forEach((_, i) => {
     const btn = document.getElementById('so-' + i);
     if (btn) btn.disabled = true;
     if (i === idx) {
-      if (s.opts[i].ok) {
+      if (isOk) {
         playSound('correct');
         btn.classList.add('correct');
         scState.score++;
         toast(t('sg_correct'));
-        speak(t('sg_correct'));
       } else {
         playSound('wrong');
         btn.classList.add('wrong');
         toast(t('sg_wrong'));
-        speak(t('sg_wrong'));
       }
     } else if (s.opts[i].ok) {
-      // Reveal correct answer after a short delay
       setTimeout(() => { const b = document.getElementById('so-' + i); if (b) b.classList.add('correct'); }, 350);
     }
   });
 
   const expl = document.getElementById('sc-expl');
   if (expl) expl.classList.add('show');
+  speak((isOk ? t('sg_correct') : t('sg_wrong')) + '. ' + (s.expl[S.lang] || s.expl.en));
   const nb = document.getElementById('sc-next-btn');
   if (nb) nb.classList.add('show');
 }

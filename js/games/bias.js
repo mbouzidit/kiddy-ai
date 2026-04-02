@@ -64,7 +64,6 @@ function _checkBias(answer) {
   const ok  = answer === sc.answer;
   if (ok) biasCorrect++;
   playSound(ok ? 'correct' : 'wrong');
-  speak(ok ? t('bs_correct') : t('bs_wrong'));
 
   const fb = document.getElementById('bs-fb');
   if (fb) {
@@ -73,6 +72,7 @@ function _checkBias(answer) {
       <div class="fb-txt ${ok ? 'ok' : 'no'}"><strong>${ok ? t('bs_correct') : t('bs_wrong')}</strong></div>
       <div class="fb-expl">${expl}</div>`;
     fb.style.display = 'block';
+    speak((ok ? t('bs_correct') : t('bs_wrong')) + '. ' + expl);
   }
 
   document.querySelectorAll('.bs-btn').forEach(b => b.disabled = true);
