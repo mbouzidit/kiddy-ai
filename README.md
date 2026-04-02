@@ -4,20 +4,39 @@ A gamified, single-page web app that teaches children about Artificial Intellige
 
 ---
 
+## Age Modes
+
+The app supports **3 independent age modes**, each with its own profile, progress, and content:
+
+| Mode | Ages | Quiz | Missions | Health Hero | Planet Sort | Levels |
+|---|---|---|---|---|---|---|
+| 🐣 Junior | 4–8 | 5 simplified TF/MC3 | 3 facts/mission | 3 pairs | 6 items, 2 categories | 4 levels |
+| 🚀 Explorer | 8–12 | 5 of 10 sampled | 4 facts/mission | 4 pairs | 9 items, 3 categories | 6 levels |
+| 🧠 Expert | 12–14 | 5 of 10 deep questions | 6 facts + ethics | 6 pairs | 12 items, 4 categories | 7 levels |
+
+Modes are selected at the start (Splash → Mode Select → Profile → Dashboard). Each mode is **fully isolated** in localStorage — progress in one mode is unaffected by another.
+
+Expert mode also includes two exclusive games: **Spot the Bias** and **Adversarial Challenge**.
+
+---
+
 ## Features
 
+- **3 Age Modes** — Junior (4–8), Explorer (8–12), Expert (12–14) with isolated profiles and content
 - **3 Mission Activities** — themed mini-games that each unlock a badge and +75 XP; replaying awards +25 XP (once per session)
 - **Robot Training Workshop** — drag-and-drop data into a robot brain, train to 100%, then test what it learned (with completion summary)
-- **AI Quiz** — 10-question pool, 5 sampled randomly per run; hints, per-answer feedback, results celebration; +25 XP replay bonus for runs 2–4
-- **10 Badges** — earned by completing activities and hitting milestones
-- **6 Progression Levels** — from Junior Scientist up to AI Genius (max: 1,075 XP with perfect play reaches Level 5 "AI Master")
+- **AI Quiz** — 5 questions sampled from a pool (5 for Junior, 10 for Explorer/Expert); hints, per-answer feedback, results celebration; +25 XP replay bonus for runs 2–4
+- **Expert: Spot the Bias** — 3 scenarios: label each AI decision as Biased / Fair / Uncertain; earn `bias-buster` badge + 100 XP
+- **Expert: Adversarial Challenge** — 3 scenarios: pick which change fools the AI; earn `adversarial-pro` badge + 75 XP
+- **10 Base Badges + 4 Expert Badges** — earned by completing activities and hitting milestones
+- **Mode-specific Progression Levels** — Junior (4 levels), Explorer (6 levels), Expert (7 levels)
 - **Bilingual** — full English / French support with a flag toggle
-- **Persistent progress** — state saved to `localStorage`, survives page refresh
-- **"Next Activity" flow** — after each completion a button guides to the next activity (Health → Planet → Helper → Training → Quiz → Badges)
-- **Sound effects** — synthesised audio feedback via Web Audio API (no audio files): button clicks, correct/wrong answers, completions, badge earned, level-up
+- **Persistent progress** — each mode's state saved to `localStorage` with mode-specific keys; `ailab_mode` pointer tracks active mode
+- **"Next Activity" flow** — after each completion a button guides to the next activity
+- **Sound effects** — synthesised audio feedback via Web Audio API (no audio files)
 - **Mute toggle** — 🔊/🔇 button in the top bar, preference saved to localStorage
-- **Reset progress** — wipe all progress and start fresh from the dashboard; language and sound preferences are preserved
-- **Accessibility** — ARIA labels on all interactive elements, `aria-live` toast notifications, keyboard navigation in bottom nav and Training Workshop drag-and-drop
+- **Reset progress** — wipes the current mode's progress only; other modes unaffected
+- **Accessibility** — ARIA labels on all interactive elements, `aria-live` toast notifications, keyboard navigation in Training Workshop
 
 ---
 
@@ -35,42 +54,50 @@ npx serve .
 
 ```
 kiddy-ai/
-├── index.html              # App shell — all 10 screens
+├── index.html              # App shell — all screens
 ├── css/
 │   ├── base.css            # Variables, reset, shared components
 │   ├── screens.css         # Per-screen styles
 │   └── games.css           # Mini-game styles
 └── js/
-    ├── data.js             # All constants: translations (EN/FR), levels, badges, quiz questions, mission data
-    ├── state.js            # Global state object S + localStorage save/load
+    ├── data.js             # All constants: translations (EN/FR), levels, badges, quiz questions,
+    │                       # mission data, and all mode-specific variants (*_BY_MODE)
+    ├── state.js            # Global state S + mode-aware localStorage save/load
     ├── utils.js            # XP, badge earning, toast notifications, confetti
     ├── i18n.js             # t() helper + applyLang() to re-render on language switch
     ├── nav.js              # Screen routing (nav, onLoad)
     ├── main.js             # App entry point
     ├── screens/
     │   ├── splash.js       # Animated welcome screen
+    │   ├── mode-select.js  # Age mode selection (Junior / Explorer / Expert)
     │   ├── profile.js      # Name + avatar picker
-    │   ├── dashboard.js    # Main hub
+    │   ├── dashboard.js    # Main hub with mode-aware progress bar
     │   ├── missions.js     # Mission list, launcher, completion flow
     │   ├── training.js     # Drag-and-drop training + test phase
     │   ├── quiz.js         # Quiz questions, scoring, results
-    │   └── badges.js       # Achievement gallery
+    │   └── badges.js       # Achievement gallery (shows Expert badges in Expert mode)
     └── games/
-        ├── health.js       # Health Hero — match AI solutions to health problems
-        ├── planet.js       # Planet Protector — sort AI tools into categories
-        └── helper.js       # Smart Helper — pick the right AI for each scenario
+        ├── health.js       # Health Hero — match AI solutions to health problems (3/4/6 pairs by mode)
+        ├── planet.js       # Planet Protector — sort AI tools into categories (2/3/4 cats by mode)
+        ├── helper.js       # Smart Helper — pick the right AI for each scenario
+        ├── bias.js         # Spot the Bias — Expert only (3 scenarios)
+        └── adversarial.js  # Adversarial Challenge — Expert only (3 scenarios)
 ```
 
 ---
 
-## Screens & Flow
+## App Flow
 
 ```
-Splash → Profile → Dashboard
-                      ├─ Missions → Health Hero → Planet Protector → Smart Helper
-                      ├─ Training Workshop
-                      ├─ Quiz → Results
-                      └─ Badges
+Splash
+  └─ Mode Select (Junior / Explorer / Expert)
+        └─ Profile (name + avatar)
+              └─ Dashboard
+                    ├─ Missions → Health Hero → Planet Protector → Smart Helper
+                    │             └─ [Expert only] Bias Detector + Adversarial Challenge
+                    ├─ Training Workshop
+                    ├─ Quiz → Results
+                    └─ Badges
 ```
 
 ---
@@ -79,15 +106,28 @@ Splash → Profile → Dashboard
 
 | Activity | Mechanic | XP | Badge |
 |---|---|---|---|
-| Health Hero | Match 4 health problems to AI solutions | +75 | health-hero |
-| Planet Protector | Sort 9 AI tools into 3 categories | +75 | planet-pro |
+| Health Hero | Match health problems to AI solutions (3/4/6 pairs by mode) | +75 | health-hero |
+| Planet Protector | Sort AI tools into categories (2/3/4 cats by mode) | +75 | planet-pro |
 | Smart Helper | Pick the best AI tool for 3 scenarios | +75 | smart-helper |
 | All 3 missions | Bonus for completing all missions | +100 | mission-master |
 | Training Workshop | Drag 8 items into the robot brain, then train to 100% | +150 | robot-trainer, data-detective |
-| Quiz (any score) | 5 of 10 questions sampled randomly, +50 XP per correct answer | +100 base | quiz-starter |
+| Quiz (any score) | 5 questions sampled from pool, +50 XP per correct answer | +100 base | quiz-starter |
 | Quiz perfect score | Score 5/5 | +200 bonus | ai-genius |
 | Quiz replays (runs 2–4) | +25 XP per replay regardless of score | +25 | — |
 | Mission replays | Replay a completed mission mini-game (once per session) | +25 | — |
+| Spot the Bias *(Expert)* | Correctly label all 3 bias scenarios | +100 | bias-buster |
+| Adversarial Challenge *(Expert)* | Correctly identify all 3 adversarial inputs | +75 | adversarial-pro |
+
+---
+
+## Storage Keys
+
+| Mode | Key |
+|---|---|
+| Explorer | `ailab_v4` (backward-compatible) |
+| Junior | `ailab_v4_junior` |
+| Expert | `ailab_v4_expert` |
+| Active mode pointer | `ailab_mode` |
 
 ---
 
@@ -105,14 +145,14 @@ S = {
   missions: [],    // Completed mission IDs: ['health', 'planet', 'helper']
   trDone: false,   // Training completed
   trCount: 0,      // Items dragged (0–8)
-  quizBest: -1,      // Best quiz score (–1 = never played)
-  quizPlays: 0,      // Total completed quiz runs (used for replay XP cap)
-  qScore: 0,         // Current quiz session score
-  qCurrent: 0,       // Current question index
-  qQuestions: [],    // Sampled 5-question subset for current quiz run
+  quizBest: -1,    // Best quiz score (–1 = never played)
+  quizPlays: 0,    // Total completed quiz runs (used for replay XP cap)
+  qScore: 0,       // Current quiz session score
+  qCurrent: 0,     // Current question index
+  qQuestions: [],  // Sampled 5-question subset for current quiz run
   qAnswered: false,
   hintUsed: false,
-  muted: false        // Sound muted preference
+  muted: false     // Sound muted preference
 }
 ```
 

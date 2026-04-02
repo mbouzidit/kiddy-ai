@@ -3,14 +3,17 @@
    Drag a health problem → drop on its AI solution (4 pairs)
 ════════════════════════════════════════ */
 
-let mgState = { matched: 0, dragPairIdx: null, probOrder: [], rightOrder: [] };
+let mgState = { matched: 0, total: 4, dragPairIdx: null, probOrder: [], rightOrder: [] };
 let mgGhost = null, mgDragEl = null;
 
 function buildHealthGame(wrap, missionId, done) {
+  const pairs = HEALTH_PAIRS_BY_MODE[_mode] || HEALTH_PAIRS;
+  const n = pairs.length;
   const L = S.lang;
-  const probOrder  = [0,1,2,3].sort(() => Math.random() - .5);
-  const rightOrder = [0,1,2,3].sort(() => Math.random() - .5);
-  mgState = { matched: 0, dragPairIdx: null, probOrder, rightOrder };
+  const indices = Array.from({ length: n }, (_, i) => i);
+  const probOrder  = indices.slice().sort(() => Math.random() - .5);
+  const rightOrder = indices.slice().sort(() => Math.random() - .5);
+  mgState = { matched: 0, total: n, dragPairIdx: null, probOrder, rightOrder };
 
   const completeBtnHtml = done
     ? `<button class="btn btn-gray btn-full" style="margin-top:8px" onclick="nav('missions')">${t('mis_btn_done')}</button>`
@@ -21,21 +24,21 @@ function buildHealthGame(wrap, missionId, done) {
 
   const problems = probOrder.map(pi => `
     <div class="match-prob" id="mp-${pi}" draggable="true">
-      <span class="match-ico">${HEALTH_PAIRS[pi].prob.ico}</span>
-      <div class="match-lbl">${HEALTH_PAIRS[pi].prob[L] || HEALTH_PAIRS[pi].prob.en}</div>
+      <span class="match-ico">${pairs[pi].prob.ico}</span>
+      <div class="match-lbl">${pairs[pi].prob[L] || pairs[pi].prob.en}</div>
     </div>`).join('');
 
   const zones = rightOrder.map((ri, vi) => `
     <div class="match-zone" id="mz-${vi}">
-      <span class="match-ico">${HEALTH_PAIRS[ri].sol.ico}</span>
-      <div class="match-lbl">${HEALTH_PAIRS[ri].sol[L] || HEALTH_PAIRS[ri].sol.en}</div>
+      <span class="match-ico">${pairs[ri].sol.ico}</span>
+      <div class="match-lbl">${pairs[ri].sol[L] || pairs[ri].sol.en}</div>
     </div>`).join('');
 
   wrap.innerHTML = `
     <div class="game-wrap">
       <div class="game-title">${t('hg_title')}</div>
       <div class="game-inst">${t('hg_inst')}</div>
-      <div class="match-score" id="mg-score">0 / 4 ✅</div>
+      <div class="match-score" id="mg-score">0 / ${n} ✅</div>
       <div class="match-col-ttl">${t('hg_prob')}</div>
       <div class="match-probs" id="match-probs">${problems}</div>
       <div class="match-col-ttl" style="margin-top:14px">${t('hg_sol')}</div>
@@ -148,8 +151,8 @@ function mgResolve(probPairIdx, zoneVisualIdx, zonePairIdx) {
     probEl.classList.add('matched');
     zoneEl.classList.add('matched');
     mgState.matched++;
-    document.getElementById('mg-score').textContent = `${mgState.matched} / 4 ✅`;
-    if (mgState.matched === 4) {
+    document.getElementById('mg-score').textContent = `${mgState.matched} / ${mgState.total} ✅`;
+    if (mgState.matched === mgState.total) {
       setTimeout(() => {
         document.getElementById('mg-success')?.classList.add('show');
         const btn = document.getElementById('mg-cmp-btn');

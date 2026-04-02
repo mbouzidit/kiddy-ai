@@ -15,7 +15,7 @@ function addXP(n) {
 function earn(id) {
   if (S.badges.includes(id)) return;
   S.badges.push(id);
-  const b = BADGES.find(x => x.id === id);
+  const b = [...BADGES, ...BADGES_EXPERT].find(x => x.id === id);
   if (b) {
     const bName = S.lang === 'fr' ? b.name_fr : b.name;
     toast(`${t('badge_prefix')} ${bName}!`);
@@ -25,8 +25,9 @@ function earn(id) {
 }
 
 function getLevel() {
-  let lvl = LEVELS[0];
-  for (const l of LEVELS) { if (S.xp >= l.min) lvl = l; else break; }
+  const levels = LEVELS_BY_MODE[_mode] || LEVELS;
+  let lvl = levels[0];
+  for (const l of levels) { if (S.xp >= l.min) lvl = l; else break; }
   return lvl;
 }
 

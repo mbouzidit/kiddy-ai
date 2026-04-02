@@ -4,6 +4,17 @@
 
 const STORAGE_KEY = 'ailab_v4';
 
+let _mode = 'explorer'; // 'junior' | 'explorer' | 'expert'
+
+function _modeKey() {
+  return _mode === 'explorer' ? STORAGE_KEY : STORAGE_KEY + '_' + _mode;
+}
+
+function setMode(m) {
+  _mode = m;
+  try { localStorage.setItem('ailab_mode', m); } catch(e) {}
+}
+
 let S = {
   name: '', ava: '🧑', xp: 0, lang: 'en',
   badges: [], missions: [],
@@ -13,12 +24,12 @@ let S = {
 };
 
 function save() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(S)); } catch (e) {}
+  try { localStorage.setItem(_modeKey(), JSON.stringify(S)); } catch (e) {}
 }
 
 function load() {
   try {
-    const d = localStorage.getItem(STORAGE_KEY);
+    const d = localStorage.getItem(_modeKey());
     if (d) { S = { ...S, ...JSON.parse(d) }; return true; }
   } catch (e) {}
   return false;

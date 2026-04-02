@@ -24,6 +24,11 @@ This folder contains feature specifications for AI Lab for Kids. Write or update
 | [spec-16-quiz-replay-xp.md](spec-16-quiz-replay-xp.md) | +25 XP replay bonus for quiz runs 2–4 |
 | [spec-17-mission-replay-xp.md](spec-17-mission-replay-xp.md) | +25 XP session replay bonus for completed mission mini-games |
 | [spec-18-accessibility.md](spec-18-accessibility.md) | ARIA labels, live regions, keyboard drag-and-drop (Training) |
+| [spec-19-age-modes.md](spec-19-age-modes.md) | 3 independent age modes (Junior/Explorer/Expert), mode-select screen, isolated storage |
+| [spec-20-junior-mode.md](spec-20-junior-mode.md) | Junior (4-8) content: simplified quiz, 3-pair Health Hero, 6-item Planet Sort, 4 levels |
+| [spec-21-expert-mode.md](spec-21-expert-mode.md) | Expert (12-14) content: deep quiz, 6-pair Health Hero, 4-cat Planet Sort, 7 levels, 4 badges |
+| [spec-22-game-bias-detector.md](spec-22-game-bias-detector.md) | Expert game: Spot the Bias — classify AI decisions as Biased/Fair/Uncertain |
+| [spec-23-game-adversarial.md](spec-23-game-adversarial.md) | Expert game: Adversarial Challenge — find the modification that fools an AI |
 
 ## Spec Format
 

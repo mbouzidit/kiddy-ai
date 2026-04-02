@@ -12,6 +12,25 @@ function loadMissions() {
       el.textContent = t('mis_pill'); el.classList.remove('done');
     }
   });
+
+  const isExpert = _mode === 'expert';
+  const biasCard = document.getElementById('mis-card-bias');
+  const advCard  = document.getElementById('mis-card-adv');
+  if (biasCard) biasCard.style.display = isExpert ? '' : 'none';
+  if (advCard)  advCard.style.display  = isExpert ? '' : 'none';
+
+  if (isExpert) {
+    const biasPill = document.getElementById('mp-bias');
+    const advPill  = document.getElementById('mp-adv');
+    if (biasPill) {
+      if (S.badges.includes('bias-buster')) { biasPill.textContent = t('mis_done'); biasPill.classList.add('done'); }
+      else { biasPill.textContent = t('mis_pill'); biasPill.classList.remove('done'); }
+    }
+    if (advPill) {
+      if (S.badges.includes('adversarial-pro')) { advPill.textContent = t('mis_done'); advPill.classList.add('done'); }
+      else { advPill.textContent = t('mis_pill'); advPill.classList.remove('done'); }
+    }
+  }
 }
 
 let _curMission = null;
@@ -19,7 +38,8 @@ const _replayedThisSession = new Set();
 
 function showMission(id, skipNav = false) {
   _curMission = id;
-  const m     = MISSIONS_DATA[id];
+  const mData = MISSIONS_DATA_BY_MODE[_mode] || MISSIONS_DATA;
+  const m     = mData[id];
   const done  = S.missions.includes(id);
   const facts = S.lang === 'fr' ? m.facts_fr : m.facts;
   const title = S.lang === 'fr' ? m.title_fr  : m.title;
@@ -66,9 +86,10 @@ function completeMission(id) {
     }
     return;
   }
+  const mData = MISSIONS_DATA_BY_MODE[_mode] || MISSIONS_DATA;
   S.missions.push(id);
   addXP(75);
-  earn(MISSIONS_DATA[id].badge);
+  earn(mData[id].badge);
   toast(t('mis_toast'));
   playSound('complete');
   save();

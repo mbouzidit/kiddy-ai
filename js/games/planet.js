@@ -3,14 +3,18 @@
    Drag an AI tool → drop it into the right category zone (9 items, 3 categories)
 ════════════════════════════════════════ */
 
-let sortState = { sorted: 0, counts: [0,0,0], dragItem: null };
+let sortState = { sorted: 0, total: 9, counts: [], dragItem: null };
 let sortGhost = null, sortDragEl = null;
 
 function buildPlanetGame(wrap, missionId, done) {
+  const pData = PLANET_DATA_BY_MODE[_mode] || { cats: PLANET_CATS, items: PLANET_ITEMS };
+  const cats  = pData.cats;
+  const items = pData.items;
+  const n     = items.length;
   const L = S.lang;
-  sortState = { sorted: 0, counts: [0,0,0], dragItem: null };
+  sortState = { sorted: 0, total: n, counts: Array(cats.length).fill(0), dragItem: null };
 
-  const zones = PLANET_CATS.map((c, i) => `
+  const zones = cats.map((c, i) => `
     <div class="sort-zone" id="sz-${i}" style="background:${c.bg};border-color:${c.color}">
       <div class="sort-zone-head">
         <span class="sort-cat-ico">${c.ico}</span>
@@ -20,7 +24,7 @@ function buildPlanetGame(wrap, missionId, done) {
       <div class="sort-zone-chips" id="sz-chips-${i}"></div>
     </div>`).join('');
 
-  const items = PLANET_ITEMS.map((it, i) => `
+  const itemsHtml = items.map((it, i) => `
     <div class="sort-item" id="si-${i}" draggable="true">
       ${it.ico} ${it[L] || it.en}
     </div>`).join('');
@@ -36,8 +40,8 @@ function buildPlanetGame(wrap, missionId, done) {
     <div class="game-wrap">
       <div class="game-title">${t('pg_title')}</div>
       <div class="game-inst">${t('pg_inst')}</div>
-      <div class="sort-score" id="sort-score">${t('pg_score')} 0 / 9</div>
-      <div class="sort-items" id="sort-items-wrap">${items}</div>
+      <div class="sort-score" id="sort-score">${t('pg_score')} 0 / ${n}</div>
+      <div class="sort-items" id="sort-items-wrap">${itemsHtml}</div>
       <div class="sort-zones">${zones}</div>
       <div class="game-success" id="sort-success">
         <span class="game-success-ico">🌍</span>
@@ -47,13 +51,13 @@ function buildPlanetGame(wrap, missionId, done) {
     </div>`;
 
   // bind mouse drag on items
-  PLANET_ITEMS.forEach((_, i) => {
+  items.forEach((_, i) => {
     const el = document.getElementById('si-' + i);
     el.ondragstart = e => sortDragStart(e, i);
     el.ondragend   = () => sortDragEndMouse();
   });
   // bind mouse drop on category zones
-  PLANET_CATS.forEach((_, ci) => {
+  cats.forEach((_, ci) => {
     const z = document.getElementById('sz-' + ci);
     z.ondragover  = e => { e.preventDefault(); z.classList.add('drag-over'); };
     z.ondragleave = ()  => z.classList.remove('drag-over');
@@ -64,7 +68,7 @@ function buildPlanetGame(wrap, missionId, done) {
     };
   });
   // bind touch drag on items
-  PLANET_ITEMS.forEach((_, i) => {
+  items.forEach((_, i) => {
     const el = document.getElementById('si-' + i);
     el.addEventListener('touchstart', sortTouchStart, { passive: false });
     el.addEventListener('touchmove',  sortTouchMove,  { passive: false });
@@ -138,7 +142,8 @@ function sortTouchEnd(e) {
 /* ── RESOLVE DROP ── */
 function sortResolve(itemIdx, catIdx) {
   if (itemIdx === null || itemIdx === undefined) return;
-  const item   = PLANET_ITEMS[itemIdx];
+  const pData = PLANET_DATA_BY_MODE[_mode] || { cats: PLANET_CATS, items: PLANET_ITEMS };
+  const item   = pData.items[itemIdx];
   const el     = document.getElementById('si-' + itemIdx);
   const zoneEl = document.getElementById('sz-' + catIdx);
   if (!el || !zoneEl || el.classList.contains('sorted')) return;
@@ -156,8 +161,8 @@ function sortResolve(itemIdx, catIdx) {
     sortState.counts[catIdx]++;
     document.getElementById('sc-cnt-' + catIdx).textContent = sortState.counts[catIdx];
     sortState.sorted++;
-    document.getElementById('sort-score').textContent = `${t('pg_score')} ${sortState.sorted} / 9`;
-    if (sortState.sorted === 9) {
+    document.getElementById('sort-score').textContent = `${t('pg_score')} ${sortState.sorted} / ${sortState.total}`;
+    if (sortState.sorted === sortState.total) {
       setTimeout(() => {
         document.getElementById('sort-success')?.classList.add('show');
         const btn = document.getElementById('sort-cmp-btn');

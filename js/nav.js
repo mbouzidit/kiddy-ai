@@ -3,17 +3,19 @@
 ════════════════════════════════════════ */
 
 const NAV_MAP = {
-  dashboard:      'home',
-  missions:       'missions',
-  'mission-detail':'missions',
-  training:       'training',
-  'quiz-intro':   'quiz',
-  quiz:           'quiz',
-  'quiz-results': 'quiz',
-  badges:         'badges'
+  dashboard:        'home',
+  missions:         'missions',
+  'mission-detail': 'missions',
+  'bias-game':      'missions',
+  'adversarial-game':'missions',
+  training:         'training',
+  'quiz-intro':     'quiz',
+  quiz:             'quiz',
+  'quiz-results':   'quiz',
+  badges:           'badges'
 };
 
-const NO_NAV = ['splash', 'profile'];
+const NO_NAV = ['splash', 'mode-select', 'profile'];
 
 function nav(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -32,6 +34,7 @@ function nav(id) {
 }
 
 function onLoad(id) {
+  if (id === 'mode-select')    initModeSelect();
   if (id === 'dashboard')      loadDash();
   if (id === 'missions')       loadMissions();
   if (id === 'mission-detail' && _curMission) {

@@ -10,7 +10,7 @@ function loadQuizIntro() {
 }
 
 function startQuiz() {
-  const pool    = QUESTIONS.slice();
+  const pool    = (QUESTIONS_BY_MODE[_mode] || QUESTIONS).slice();
   const sampled = [];
   while (sampled.length < 5 && pool.length > 0) {
     const idx = Math.floor(Math.random() * pool.length);

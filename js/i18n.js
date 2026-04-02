@@ -34,6 +34,12 @@ function applyLang() {
   const muteBtn = document.getElementById('mute-btn');
   if (muteBtn) muteBtn.setAttribute('aria-label', S.muted ? L.a11y_mute_off : L.a11y_mute_on);
 
+  // Mode select
+  _t('ms-title', L.ms_title); _t('ms-sub', L.ms_sub);
+  _t('ms-junior-lbl', L.ms_junior);     _t('ms-junior-sub', L.ms_junior_sub);
+  _t('ms-explorer-lbl', L.ms_explorer); _t('ms-explorer-sub', L.ms_explorer_sub);
+  _t('ms-expert-lbl', L.ms_expert);     _t('ms-expert-sub', L.ms_expert_sub);
+
   // Splash (title uses innerHTML for line break)
   const spTitleEl = document.getElementById('sp-title');
   if (spTitleEl) spTitleEl.innerHTML = L.sp_title;
@@ -55,6 +61,8 @@ function applyLang() {
   _t('m-h-ttl', L.m_h_ttl); _t('m-h-desc', L.m_h_desc);
   _t('m-p-ttl', L.m_p_ttl); _t('m-p-desc', L.m_p_desc);
   _t('m-s-ttl', L.m_s_ttl); _t('m-s-desc', L.m_s_desc);
+  _t('m-bias-ttl', L.m_bias_ttl); _t('m-bias-desc', L.m_bias_desc);
+  _t('m-adv-ttl', L.m_adv_ttl);   _t('m-adv-desc', L.m_adv_desc);
 
   // Training
   _t('tr-title', L.tr_title); _t('tr-sub', L.tr_sub);

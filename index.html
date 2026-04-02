@@ -32,7 +32,35 @@
   <h1 class="splash-title" id="sp-title">AI LAB<br>FOR KIDS!</h1>
   <p  class="splash-sub" id="sp-sub">Learn about Artificial Intelligence</p>
   <p  class="splash-tag" id="sp-tag">⚡ Explore · Train · Quiz · Discover ⚡</p>
-  <button class="splash-start" id="sp-btn" onclick="nav('profile')">🚀 Start Adventure!</button>
+  <button class="splash-start" id="sp-btn" onclick="nav('mode-select')">🚀 Start Adventure!</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 1b · MODE SELECT
+══════════════════════════════════════ -->
+<div id="screen-mode-select" class="screen">
+  <div class="ms-card">
+    <div style="font-size:48px;margin-bottom:10px">🤖</div>
+    <div class="ms-title" id="ms-title">Who's Playing Today?</div>
+    <div class="ms-sub"   id="ms-sub">Choose your learning level</div>
+    <div class="ms-grid">
+      <div class="ms-mode-card ms-junior" onclick="pickMode('junior')">
+        <div class="ms-mode-ico">🐣</div>
+        <div class="ms-mode-lbl" id="ms-junior-lbl">🐣 Junior</div>
+        <div class="ms-mode-sub" id="ms-junior-sub">Ages 4–8 · Simple &amp; fun</div>
+      </div>
+      <div class="ms-mode-card ms-explorer" onclick="pickMode('explorer')">
+        <div class="ms-mode-ico">🚀</div>
+        <div class="ms-mode-lbl" id="ms-explorer-lbl">🚀 Explorer</div>
+        <div class="ms-mode-sub" id="ms-explorer-sub">Ages 8–12 · Learn &amp; discover</div>
+      </div>
+      <div class="ms-mode-card ms-expert" onclick="pickMode('expert')">
+        <div class="ms-mode-ico">🧠</div>
+        <div class="ms-mode-lbl" id="ms-expert-lbl">🧠 Expert</div>
+        <div class="ms-mode-sub" id="ms-expert-sub">Ages 12–14 · Deep &amp; challenging</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ══════════════════════════════════════
@@ -152,6 +180,22 @@
         <span class="mis-pill" id="mp-helper">+75 XP · Learn More →</span>
       </div>
     </div>
+    <div class="mis-card bias expert-only" id="mis-card-bias" onclick="launchBiasGame()" style="display:none">
+      <div class="mis-ico">🔐</div>
+      <div class="mis-info">
+        <div class="mis-ttl"  id="m-bias-ttl">Bias Detector</div>
+        <div class="mis-desc" id="m-bias-desc">Can you spot when AI is being unfair?</div>
+        <span class="mis-pill" id="mp-bias">+100 XP · Play →</span>
+      </div>
+    </div>
+    <div class="mis-card adv expert-only" id="mis-card-adv" onclick="launchAdversarialGame()" style="display:none">
+      <div class="mis-ico">🎯</div>
+      <div class="mis-info">
+        <div class="mis-ttl"  id="m-adv-ttl">Adversarial Challenge</div>
+        <div class="mis-desc" id="m-adv-desc">Can you trick an AI into a wrong decision?</div>
+        <span class="mis-pill" id="mp-adv">+75 XP · Play →</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -159,6 +203,20 @@
      SCREEN 5 · MISSION DETAIL (dynamic)
 ══════════════════════════════════════ -->
 <div id="screen-mission-detail" class="screen"></div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 5b · BIAS GAME (Expert only)
+══════════════════════════════════════ -->
+<div id="screen-bias-game" class="screen">
+  <div id="bias-wrap"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 5c · ADVERSARIAL GAME (Expert only)
+══════════════════════════════════════ -->
+<div id="screen-adversarial-game" class="screen">
+  <div id="adv-wrap"></div>
+</div>
 
 <!-- ══════════════════════════════════════
      SCREEN 6 · TRAINING
@@ -346,12 +404,15 @@
 <script src="js/i18n.js"></script>
 <!-- 5. Screen modules -->
 <script src="js/screens/splash.js"></script>
+<script src="js/screens/mode-select.js"></script>
 <script src="js/screens/profile.js"></script>
 <script src="js/screens/dashboard.js"></script>
 <!-- 6. Game modules (before missions.js which calls them) -->
 <script src="js/games/health.js"></script>
 <script src="js/games/planet.js"></script>
 <script src="js/games/helper.js"></script>
+<script src="js/games/bias.js"></script>
+<script src="js/games/adversarial.js"></script>
 <!-- 7. Remaining screens -->
 <script src="js/screens/missions.js"></script>
 <script src="js/screens/training.js"></script>

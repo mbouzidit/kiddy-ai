@@ -28,8 +28,9 @@ function loadDash() {
     msgs[Math.floor(Math.random() * msgs.length)].replace('{n}', S.name);
 
   // Progress bar
+  const levels = LEVELS_BY_MODE[_mode] || LEVELS;
   const lvl  = getLevel();
-  const next = LEVELS[LEVELS.indexOf(lvl) + 1];
+  const next = levels[levels.indexOf(lvl) + 1];
   if (next) {
     const p = ((S.xp - lvl.min) / (next.min - lvl.min)) * 100;
     document.getElementById('d-prog').style.width = Math.min(p, 100) + '%';
