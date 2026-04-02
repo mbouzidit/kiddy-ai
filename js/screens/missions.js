@@ -14,7 +14,10 @@ function loadMissions() {
   });
 }
 
+let _curMission = null;
+
 function showMission(id) {
+  _curMission = id;
   const m     = MISSIONS_DATA[id];
   const done  = S.missions.includes(id);
   const facts = S.lang === 'fr' ? m.facts_fr : m.facts;

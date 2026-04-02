@@ -45,7 +45,7 @@ function loadDash() {
   sect.textContent = L.d_sect + ' ';
   const sp = document.createElement('span');
   sp.id = 'd-name';
-  sp.textContent = S.name || 'Explorer';
+  sp.textContent = S.name || t('d_explorer');
   sect.appendChild(sp);
   sect.appendChild(document.createTextNode('!'));
 }

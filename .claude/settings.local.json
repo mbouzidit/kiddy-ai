@@ -25,6 +25,11 @@
             "type": "command",
             "command": "printf '{\"systemMessage\":\"README check: if anything changed this session (features, structure, flow, behaviour, config), update README.md now. If no update is needed, tell the user why in one line.\"}'",
             "statusMessage": "Checking README..."
+          },
+          {
+            "type": "command",
+            "command": "printf '{\"systemMessage\":\"i18n check: if any user-facing strings were added or changed - (1) both T.en and T.fr keys must exist in data.js, (2) always use t(key) in JS never hardcode display strings, (3) dynamic content must use S.lang with fallback to .en. Fix any violations before finishing.\"}'",
+            "statusMessage": "Checking i18n..."
           }
         ]
       }

@@ -57,9 +57,18 @@ const label = item[S.lang] || item.en;
 
 ---
 
+## Known Patterns in Codebase
+
+Two equivalent patterns are used for dynamic language selection — both are correct:
+- **Fallback** (games): `item[S.lang] || item.en`
+- **Ternary** (screens/data): `S.lang === 'fr' ? item.name_fr : item.name`
+
+The splash title (`#sp-title`) uses `innerHTML` instead of `_t()` because it contains a `<br>` line break.
+
 ## Acceptance Criteria
 - [ ] All text updates immediately on language switch without reload
 - [ ] Active language button is visually distinguished
 - [ ] Language choice persists across sessions (saved in `S.lang`)
 - [ ] Dynamic game content (fact cards, question text, option labels) also switches language
 - [ ] Fallback to English if a French key is missing
+- [ ] No hardcoded user-facing strings anywhere in JS or HTML

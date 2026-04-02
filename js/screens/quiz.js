@@ -47,7 +47,7 @@ function renderQ() {
   }
 
   // Header
-  document.getElementById('qz-ctr').textContent  = `Question ${S.qCurrent + 1} ${t('qz_q_of')} ${QUESTIONS.length}`;
+  document.getElementById('qz-ctr').textContent  = `${t('qz_question')} ${S.qCurrent + 1} ${t('qz_q_of')} ${QUESTIONS.length}`;
   document.getElementById('qz-char').textContent  = q.char;
   document.getElementById('qz-txt').textContent   = qText;
 

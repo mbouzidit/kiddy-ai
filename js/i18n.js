@@ -26,7 +26,9 @@ function applyLang() {
   document.getElementById('lang-en').classList.toggle('active', S.lang === 'en');
   document.getElementById('lang-fr').classList.toggle('active', S.lang === 'fr');
 
-  // Splash
+  // Splash (title uses innerHTML for line break)
+  const spTitleEl = document.getElementById('sp-title');
+  if (spTitleEl) spTitleEl.innerHTML = L.sp_title;
   _t('sp-sub', L.sp_sub); _t('sp-tag', L.sp_tag); _t('sp-btn', L.sp_btn);
 
   // Profile

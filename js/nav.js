@@ -32,11 +32,12 @@ function nav(id) {
 }
 
 function onLoad(id) {
-  if (id === 'dashboard')    loadDash();
-  if (id === 'missions')     loadMissions();
-  if (id === 'training')     loadTraining();
-  if (id === 'quiz-intro')   loadQuizIntro();
-  if (id === 'quiz')         renderQ();
-  if (id === 'quiz-results') loadResults();
-  if (id === 'badges')       loadBadges();
+  if (id === 'dashboard')      loadDash();
+  if (id === 'missions')       loadMissions();
+  if (id === 'mission-detail') { if (_curMission) showMission(_curMission); }
+  if (id === 'training')       loadTraining();
+  if (id === 'quiz-intro')     loadQuizIntro();
+  if (id === 'quiz')           renderQ();
+  if (id === 'quiz-results')   loadResults();
+  if (id === 'badges')         loadBadges();
 }

@@ -5,6 +5,7 @@
 /* ── TRANSLATIONS ── */
 const T = {
 en: {
+  sp_title:"AI LAB<br>FOR KIDS!",
   sp_sub:"Learn about Artificial Intelligence",
   sp_tag:"⚡ Explore · Train · Quiz · Discover ⚡",
   sp_btn:"🚀 Start Adventure!",
@@ -89,6 +90,7 @@ en: {
   qi_btn:"🎯 Start Quiz!",
   qz_title:"AI Super-Power Quiz",
   qz_q_of:"of",
+  qz_question:"Question",
   qz_true:"✅ TRUE",  qz_false:"❌ FALSE",
   qz_next:"Next Question! →",
   qz_correct:"Correct! +50 XP!",
@@ -111,10 +113,12 @@ en: {
     "The AI world awaits you, {n}! 🌟",
     "Every explorer needs rest — but not you! 💪"
   ],
+  d_explorer:"Explorer",
   welcome:"Welcome, {n}! 🎉 +50 XP",
   badge_prefix:"🏅 Badge earned:"
 },
 fr: {
+  sp_title:"AI LAB<br>POUR LES ENFANTS !",
   sp_sub:"Apprends l'Intelligence Artificielle",
   sp_tag:"⚡ Explorer · Entraîner · Quiz · Découvrir ⚡",
   sp_btn:"🚀 Commencer l'aventure !",
@@ -199,6 +203,7 @@ fr: {
   qi_btn:"🎯 Démarrer le quiz !",
   qz_title:"Quiz Super-Pouvoirs IA",
   qz_q_of:"sur",
+  qz_question:"Question",
   qz_true:"✅ VRAI", qz_false:"❌ FAUX",
   qz_next:"Question suivante ! →",
   qz_correct:"Correct ! +50 XP !",
@@ -221,6 +226,7 @@ fr: {
     "Le monde de l'IA t'attend, {n} ! 🌟",
     "Chaque explorateur se repose — sauf toi ! 💪"
   ],
+  d_explorer:"Explorateur",
   welcome:"Bienvenue, {n} ! 🎉 +50 XP",
   badge_prefix:"🏅 Badge gagné :"
 }};
