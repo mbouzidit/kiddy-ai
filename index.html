@@ -103,6 +103,16 @@
       </div>
       <div class="prog-txt" id="d-prog-txt">0 / 200 XP</div>
     </div>
+    <div id="reset-btn-wrap" class="reset-wrap">
+      <button id="reset-btn" class="reset-btn" onclick="showResetConfirm()">🗑️ Reset Progress</button>
+    </div>
+    <div id="reset-confirm-wrap" class="reset-confirm-wrap" style="display:none">
+      <p id="reset-confirm-txt" class="reset-confirm-txt">All progress will be lost. Are you sure?</p>
+      <div class="reset-confirm-btns">
+        <button id="reset-cancel-btn" class="reset-cancel-btn" onclick="hideResetConfirm()">Cancel</button>
+        <button id="reset-yes-btn"    class="reset-yes-btn"    onclick="doReset()">Yes, reset everything</button>
+      </div>
+    </div>
   </div>
 </div>
 

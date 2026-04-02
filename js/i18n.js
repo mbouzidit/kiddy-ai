@@ -71,6 +71,12 @@ function applyLang() {
   // Badges
   _t('bdg-title', L.bdg_title); _t('bdg-lvl-lbl', L.bdg_lvl_lbl);
 
+  // Dashboard reset
+  _t('reset-btn', L.reset_btn);
+  _t('reset-confirm-txt', L.reset_confirm);
+  _t('reset-cancel-btn', L.reset_cancel);
+  _t('reset-yes-btn', L.reset_yes);
+
   // Bottom nav
   _t('n-home-lbl', L.nav_home); _t('n-mis-lbl', L.nav_mis);
   _t('n-lab-lbl',  L.nav_lab);  _t('n-quiz-lbl', L.nav_quiz); _t('n-bdg-lbl', L.nav_bdg);

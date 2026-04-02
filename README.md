@@ -16,6 +16,7 @@ A gamified, single-page web app that teaches children about Artificial Intellige
 - **"Next Activity" flow** — after each completion a button guides to the next activity (Health → Planet → Helper → Training → Quiz → Badges)
 - **Sound effects** — synthesised audio feedback via Web Audio API (no audio files): button clicks, correct/wrong answers, completions, badge earned, level-up
 - **Mute toggle** — 🔊/🔇 button in the top bar, preference saved to localStorage
+- **Reset progress** — wipe all progress and start fresh from the dashboard; language and sound preferences are preserved
 
 ---
 
@@ -105,7 +106,8 @@ S = {
   qScore: 0,       // Current quiz session score
   qCurrent: 0,     // Current question index
   qAnswered: false,
-  hintUsed: false
+  hintUsed: false,
+  muted: false      // Sound muted preference
 }
 ```
 

@@ -114,6 +114,10 @@ en: {
     "Every explorer needs rest — but not you! 💪"
   ],
   d_explorer:"Explorer",
+  reset_btn:"🗑️ Reset Progress",
+  reset_confirm:"All progress will be lost. Are you sure?",
+  reset_cancel:"Cancel",
+  reset_yes:"Yes, reset everything",
   welcome:"Welcome, {n}! 🎉 +50 XP",
   badge_prefix:"🏅 Badge earned:"
 },
@@ -227,6 +231,10 @@ fr: {
     "Chaque explorateur se repose — sauf toi ! 💪"
   ],
   d_explorer:"Explorateur",
+  reset_btn:"🗑️ Réinitialiser",
+  reset_confirm:"Toute la progression sera perdue. Êtes-vous sûr ?",
+  reset_cancel:"Annuler",
+  reset_yes:"Oui, tout réinitialiser",
   welcome:"Bienvenue, {n} ! 🎉 +50 XP",
   badge_prefix:"🏅 Badge gagné :"
 }};

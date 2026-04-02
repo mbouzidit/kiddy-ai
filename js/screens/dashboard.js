@@ -49,3 +49,23 @@ function loadDash() {
   sect.appendChild(sp);
   sect.appendChild(document.createTextNode('!'));
 }
+
+function showResetConfirm() {
+  document.getElementById('reset-btn-wrap').style.display  = 'none';
+  document.getElementById('reset-confirm-wrap').style.display = 'flex';
+}
+
+function hideResetConfirm() {
+  document.getElementById('reset-btn-wrap').style.display  = 'block';
+  document.getElementById('reset-confirm-wrap').style.display = 'none';
+}
+
+function doReset() {
+  const lang  = S.lang;
+  const muted = S.muted;
+  S = { name:'', ava:'🧑', xp:0, lang, badges:[], missions:[],
+        quizBest:-1, trDone:false, trCount:0,
+        qScore:0, qCurrent:0, qAnswered:false, hintUsed:false, muted };
+  save();
+  nav('splash');
+}
