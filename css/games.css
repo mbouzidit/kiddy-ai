@@ -1,0 +1,97 @@
+/* ════════════════════════════════════════
+   GAMES — interactive component styles
+════════════════════════════════════════ */
+
+/* ── SHARED GAME WRAPPER ── */
+.game-wrap {
+  background:white; border-radius:var(--r);
+  margin:0 14px 16px; padding:20px;
+  box-shadow:var(--card-shadow);
+}
+.game-title { font-size:18px; font-weight:900; color:var(--dark-text); text-align:center; margin-bottom:6px; }
+.game-inst  { font-size:13px; color:var(--mid-text); text-align:center; margin-bottom:18px; line-height:1.5; }
+.game-success { background:linear-gradient(135deg,#E8F5E9,#C8E6C9); border-radius:var(--r-sm); padding:16px; text-align:center; margin-bottom:14px; display:none; }
+.game-success.show { display:block; animation:slideIn .4s ease-out; }
+.game-success-ico { font-size:48px; display:block; margin-bottom:8px; }
+.game-success-txt { font-size:16px; font-weight:900; color:var(--green-dark); }
+
+/* ── MISSION LAUNCH BUTTON ── */
+.game-launch-btn {
+  margin:6px 14px 20px; border-radius:var(--r);
+  padding:18px; background:linear-gradient(135deg,#6A1B9A,#AB47BC);
+  color:white; border:none; font-family:var(--font); font-size:16px; font-weight:900;
+  cursor:pointer; width:calc(100% - 28px);
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  box-shadow:0 6px 22px rgba(106,27,154,.4); transition:all .25s;
+  animation:pulseBtn 2.5s ease-in-out infinite;
+}
+.game-launch-btn:hover { transform:translateY(-3px); filter:brightness(1.1); }
+
+/* ── MATCH GAME (Health Hero) ── */
+.match-grid      { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+.match-col-ttl   { font-size:11px; font-weight:900; color:var(--mid-text); text-align:center; margin-bottom:8px; text-transform:uppercase; letter-spacing:.8px; }
+.match-item      { background:#f8f9fa; border-radius:12px; padding:11px 8px; text-align:center; cursor:pointer; border:3px solid transparent; transition:all .22s; margin-bottom:9px; }
+.match-item:last-child { margin-bottom:0; }
+.match-item:hover { transform:scale(1.04); }
+.match-item.selected { border-color:var(--blue); background:rgba(33,150,243,.1); transform:scale(1.05); }
+.match-item.matched  { border-color:var(--green); background:rgba(76,175,80,.1); pointer-events:none; opacity:.75; }
+.match-item.wrong    { border-color:var(--red); animation:itemShake .45s ease-out; }
+@keyframes itemShake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-7px)} 75%{transform:translateX(7px)} }
+.match-ico  { font-size:28px; display:block; margin-bottom:5px; }
+.match-lbl  { font-size:11px; font-weight:800; color:var(--dark-text); line-height:1.35; }
+.match-score { text-align:center; font-size:13px; font-weight:900; color:var(--blue); margin-bottom:12px; }
+
+/* ── SORT GAME (Planet Protector) ── */
+.sort-cats  { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:16px; }
+.sort-cat   { border-radius:14px; padding:12px 6px; text-align:center; cursor:pointer; border:3px solid transparent; transition:all .22s; position:relative; }
+.sort-cat.target        { border-color:var(--blue); transform:scale(1.05); box-shadow:0 4px 16px rgba(33,150,243,.3); }
+.sort-cat.correct-flash { animation:correctFlash .5s ease-out; }
+@keyframes correctFlash { 0%{transform:scale(1)} 50%{transform:scale(1.12)} 100%{transform:scale(1)} }
+.sort-cat-ico   { font-size:30px; display:block; }
+.sort-cat-lbl   { font-size:10px; font-weight:900; margin-top:4px; }
+.sort-cat-count {
+  position:absolute; top:-6px; right:-6px; background:var(--blue); color:white;
+  border-radius:50%; width:20px; height:20px;
+  font-size:10px; font-weight:900; display:flex; align-items:center; justify-content:center;
+}
+.sort-items { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:14px; min-height:50px; }
+.sort-item  { background:white; border-radius:50px; padding:8px 14px; cursor:pointer; border:3px solid #e0e0e0; transition:all .22s; font-size:13px; font-weight:800; display:flex; align-items:center; gap:6px; }
+.sort-item:hover    { border-color:var(--blue); transform:scale(1.05); }
+.sort-item.selected { border-color:var(--blue); background:rgba(33,150,243,.1); }
+.sort-item.sorted   { opacity:.25; pointer-events:none; }
+.sort-item.wrong    { border-color:var(--red); animation:itemShake .45s ease-out; }
+.sort-score { text-align:center; font-size:13px; font-weight:900; color:var(--green-dark); margin-bottom:12px; }
+
+/* ── SCENARIO GAME (Smart Helper) ── */
+.sc-counter  { font-size:13px; font-weight:800; color:var(--mid-text); text-align:center; margin-bottom:12px; }
+.sc-char     { font-size:64px; display:block; text-align:center; margin-bottom:12px; }
+.sc-desc     { font-size:15px; font-weight:700; color:var(--dark-text); text-align:center; line-height:1.6; margin-bottom:18px; background:#f8f9fa; padding:16px; border-radius:14px; }
+.sc-opts     { display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+.sc-opt      { padding:14px 18px; border:3px solid #e0e0e0; border-radius:14px; font-family:var(--font); font-size:14px; font-weight:800; cursor:pointer; transition:all .22s; background:white; color:var(--dark-text); text-align:left; width:100%; }
+.sc-opt:hover:not(:disabled) { border-color:var(--blue); background:rgba(33,150,243,.06); }
+.sc-opt.correct { border-color:var(--green); background:rgba(76,175,80,.12); color:var(--green-dark); }
+.sc-opt.wrong   { border-color:var(--red); background:rgba(231,76,60,.1); animation:itemShake .4s; color:var(--red); }
+.sc-opt:disabled { cursor:not-allowed; }
+.sc-expl     { background:rgba(76,175,80,.12); border-left:4px solid var(--green); border-radius:0 12px 12px 0; padding:12px 16px; font-size:13px; font-weight:700; color:var(--green-dark); margin-bottom:14px; display:none; line-height:1.5; }
+.sc-expl.show { display:block; animation:slideIn .3s ease-out; }
+.sc-next-btn  { width:100%; padding:13px; border:none; border-radius:14px; background:var(--blue); color:white; font-family:var(--font); font-size:15px; font-weight:900; cursor:pointer; transition:all .25s; display:none; }
+.sc-next-btn.show { display:block; }
+.sc-next-btn:hover { filter:brightness(1.1); }
+
+/* ── TRAINING TEST PHASE ── */
+.tr-test-wrap  { padding:14px; }
+.tr-test-inner { background:white; border-radius:var(--r); padding:22px; text-align:center; box-shadow:0 8px 28px rgba(33,150,243,.18); display:none; }
+.tr-test-title { font-size:18px; font-weight:900; color:var(--dark-text); margin-bottom:6px; }
+.tr-test-sub   { font-size:13px; color:var(--mid-text); margin-bottom:18px; line-height:1.5; }
+.tr-test-grid  { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:14px; }
+.tr-test-item  { display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; }
+.tr-test-ico   { width:54px; height:54px; border-radius:14px; background:#f5f5f5; border:3px solid transparent; font-size:28px; display:flex; align-items:center; justify-content:center; transition:all .3s; margin:0 auto; }
+.tr-test-ico.known   { border-color:var(--green); background:rgba(76,175,80,.12); animation:dropPop .4s ease-out; }
+.tr-test-ico.unknown { border-color:#ccc; animation:itemShake .4s; }
+.tr-test-lbl   { font-size:10px; font-weight:800; color:var(--mid-text); min-height:14px; text-align:center; }
+
+/* ── HINT BUTTON (Quiz) ── */
+.hint-btn      { background:rgba(255,255,255,.8); border:2px solid rgba(33,150,243,.4); color:var(--blue); padding:7px 16px; border-radius:50px; font-family:var(--font); font-size:13px; font-weight:800; cursor:pointer; transition:all .2s; }
+.hint-btn:hover { background:white; box-shadow:0 3px 10px rgba(33,150,243,.2); }
+.hint-btn:disabled { opacity:.4; cursor:not-allowed; }
+.hint-used     { background:#e0e0e0 !important; color:var(--mid-text) !important; border-color:#ccc !important; }
