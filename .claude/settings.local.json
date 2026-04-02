@@ -14,7 +14,8 @@
       "Bash(sed \"s/^t\\('//\")",
       "Bash(grep \"S\\\\.[a-zA-Z_]*\" js/*.js js/screens/*.js js/games/*.js)",
       "Bash(sed \"s/playSound\\('//\")",
-      "Read(//^const T = /**)"
+      "Read(//^const T = /**)",
+      "Bash(find js:*)"
     ]
   },
   "hooks": {
@@ -41,6 +42,11 @@
             "type": "command",
             "command": "printf '{\"systemMessage\":\"i18n check: if any user-facing strings were added or changed - (1) both T.en and T.fr keys must exist in data.js, (2) always use t(key) in JS never hardcode display strings, (3) dynamic content must use S.lang with fallback to .en. Fix any violations before finishing.\"}'",
             "statusMessage": "Checking i18n..."
+          },
+          {
+            "type": "command",
+            "command": "printf '{\"systemMessage\":\"Code language check: all new or modified code must be written in English — variable names, function names, comments, parameter names, object keys, and any identifiers. Non-English identifiers or comments are not allowed. If any violations exist in code written this session, fix them before finishing.\"}'",
+            "statusMessage": "Checking code language..."
           }
         ]
       }

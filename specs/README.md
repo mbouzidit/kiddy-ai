@@ -29,6 +29,7 @@ This folder contains feature specifications for AI Lab for Kids. Write or update
 | [spec-21-expert-mode.md](spec-21-expert-mode.md) | Expert (12-14) content: deep quiz, 6-pair Health Hero, 4-cat Planet Sort, 7 levels, 4 badges |
 | [spec-22-game-bias-detector.md](spec-22-game-bias-detector.md) | Expert game: Spot the Bias — classify AI decisions as Biased/Fair/Uncertain |
 | [spec-23-game-adversarial.md](spec-23-game-adversarial.md) | Expert game: Adversarial Challenge — find the modification that fools an AI |
+| [spec-24-read-aloud.md](spec-24-read-aloud.md) | Read Aloud — browser TTS via `speechSynthesis`, no API keys, EN/FR voices |
 
 ## Spec Format
 

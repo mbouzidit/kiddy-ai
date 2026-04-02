@@ -54,10 +54,11 @@ function showMission(id, skipNav = false) {
       <div class="md-title">${title}</div>
     </div>
     <div id="md-info" class="md-content">
-      ${facts.map(f => `
+      ${facts.map((f, i) => `
         <div class="fact-card">
           <div class="fact-ico">${f.ico}</div>
           <div class="fact-body"><h4>${f.h}</h4><p>${f.t}</p></div>
+          <button class="fact-speak-btn" data-idx="${i}" aria-label="${t('a11y_speak_card')}">🔊</button>
         </div>`).join('')}
       <button class="game-launch-btn" onclick="launchMissionGame('${id}')">
         ${done ? t('mg_done') : t('mg_play')}
@@ -65,6 +66,14 @@ function showMission(id, skipNav = false) {
     </div>
     <div id="md-game" style="display:none;padding:0 14px 16px"></div>`;
 
+  speak(title);
+  document.getElementById('md-info').addEventListener('click', function(e) {
+    const btn = e.target.closest('.fact-speak-btn');
+    if (!btn) return;
+    const idx = parseInt(btn.dataset.idx, 10);
+    const f = facts[idx];
+    if (f) speakOnce(f.h + '. ' + f.t);
+  });
   if (!skipNav) nav('mission-detail');
 }
 

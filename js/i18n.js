@@ -33,6 +33,8 @@ function applyLang() {
   frBtn.setAttribute('aria-label', L.a11y_lang_fr);
   const muteBtn = document.getElementById('mute-btn');
   if (muteBtn) muteBtn.setAttribute('aria-label', S.muted ? L.a11y_mute_off : L.a11y_mute_on);
+  const ttsBtn = document.getElementById('tts-btn');
+  if (ttsBtn) ttsBtn.setAttribute('aria-label', S.tts ? L.a11y_tts_on : L.a11y_tts_off);
 
   // Mode select
   _t('ms-title', L.ms_title); _t('ms-sub', L.ms_sub);

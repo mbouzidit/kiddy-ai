@@ -20,7 +20,7 @@ let S = {
   badges: [], missions: [],
   quizBest: -1, quizPlays: 0, trDone: false, trCount: 0,
   qScore: 0, qCurrent: 0, qAnswered: false, qQuestions: [],
-  hintUsed: false, muted: false
+  hintUsed: false, muted: false, tts: false
 };
 
 function save() {

@@ -19,6 +19,7 @@ function earn(id) {
   if (b) {
     const bName = S.lang === 'fr' ? b.name_fr : b.name;
     toast(`${t('badge_prefix')} ${bName}!`);
+    speak(t('tts_badge').replace('{badge}', bName));
   }
   playSound('badge');
   save();
@@ -76,6 +77,38 @@ function confetti() {
     else { cv.style.display = 'none'; cancelAnimationFrame(raf); }
   }
   anim();
+}
+
+/* ── TTS (READ ALOUD) ── */
+function speak(text) {
+  if (!S.tts || !window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = S.lang === 'fr' ? 'fr-FR' : 'en-US';
+  window.speechSynthesis.speak(u);
+}
+
+function speakOnce(text) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = S.lang === 'fr' ? 'fr-FR' : 'en-US';
+  window.speechSynthesis.speak(u);
+}
+
+function toggleTts() {
+  S.tts = !S.tts;
+  save();
+  _applyTtsBtn();
+  if (!S.tts && window.speechSynthesis) window.speechSynthesis.cancel();
+}
+
+function _applyTtsBtn() {
+  const btn = document.getElementById('tts-btn');
+  if (!btn) return;
+  btn.textContent = S.tts ? '📢' : '📖';
+  btn.classList.toggle('active', S.tts);
+  btn.setAttribute('aria-pressed', S.tts ? 'true' : 'false');
 }
 
 /* ── CONFETTI (mini burst for in-game wins) ── */

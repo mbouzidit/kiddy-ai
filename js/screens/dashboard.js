@@ -65,9 +65,10 @@ function hideResetConfirm() {
 function doReset() {
   const lang  = S.lang;
   const muted = S.muted;
+  const tts   = S.tts;
   S = { name:'', ava:'🧑', xp:0, lang, badges:[], missions:[],
         quizBest:-1, quizPlays:0, trDone:false, trCount:0,
-        qScore:0, qCurrent:0, qAnswered:false, qQuestions:[], hintUsed:false, muted };
+        qScore:0, qCurrent:0, qAnswered:false, qQuestions:[], hintUsed:false, muted, tts };
   save();
   nav('splash');
 }

@@ -203,10 +203,22 @@
 .md-ico      { font-size:78px; display:block; text-align:center; animation:rFloat 3s ease-in-out infinite; }
 .md-title    { font-size:26px; font-weight:900; color:white; text-align:center; margin-top:8px; }
 .md-content  { padding:0 14px 16px; }
-.fact-card   { background:white; border-radius:var(--r-sm); padding:18px; margin-bottom:12px; display:flex; gap:14px; align-items:flex-start; box-shadow:0 4px 14px rgba(0,0,0,.07); }
+.fact-card   { background:white; border-radius:var(--r-sm); padding:18px; margin-bottom:12px; display:flex; gap:14px; align-items:flex-start; box-shadow:0 4px 14px rgba(0,0,0,.07); position:relative; }
 .fact-ico    { font-size:30px; flex-shrink:0; }
 .fact-body h4 { font-size:15px; font-weight:800; color:var(--dark-text); margin-bottom:4px; }
 .fact-body p  { font-size:13px; color:var(--mid-text); line-height:1.6; }
+.fact-speak-btn {
+  position:absolute; top:10px; right:10px;
+  width:32px; height:32px; border-radius:50%;
+  border:none; cursor:pointer;
+  background:rgba(33,150,243,.12);
+  font-size:16px; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .18s, transform .15s;
+  flex-shrink:0;
+}
+.fact-speak-btn:hover  { background:rgba(33,150,243,.22); transform:scale(1.12); }
+.fact-speak-btn:active { background:rgba(33,150,243,.38); transform:scale(.94); }
 
 /* ── TRAINING ── */
 #screen-training { background:linear-gradient(150deg,#E3F2FD 0%,#B3E5FC 60%,#E0F7FA 100%); }

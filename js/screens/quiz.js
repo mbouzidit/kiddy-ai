@@ -58,6 +58,7 @@ function renderQ() {
   document.getElementById('qz-ctr').textContent  = `${t('qz_question')} ${S.qCurrent + 1} ${t('qz_q_of')} ${qs.length}`;
   document.getElementById('qz-char').textContent  = q.char;
   document.getElementById('qz-txt').textContent   = qText;
+  speak(qText);
 
   // Hint button
   const hb   = document.getElementById('hint-btn');
@@ -115,6 +116,7 @@ function checkAnswer(ans, q) {
   const correct = ans === q.correct;
   if (correct) { S.qScore++; addXP(50); }
   playSound(correct ? 'correct' : 'wrong');
+  speak(correct ? t('tts_correct') : t('tts_wrong'));
 
   // Highlight buttons
   if (q.type === 'tf') {
