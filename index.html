@@ -16,6 +16,8 @@
 
 <!-- LANG TOGGLE -->
 <div id="lang-toggle">
+  <button id="mute-btn" class="lang-btn" onclick="toggleMute()">🔊</button>
+  <div class="lang-sep"></div>
   <button id="lang-en" class="lang-btn active" onclick="setLang('en')">🇬🇧</button>
   <button id="lang-fr" class="lang-btn"        onclick="setLang('fr')">🇫🇷</button>
 </div>
@@ -323,9 +325,11 @@
 <script src="js/data.js"></script>
 <!-- 2. State (S, save, load) -->
 <script src="js/state.js"></script>
-<!-- 3. Utilities (XP, badges, toast, confetti) -->
+<!-- 3. Sound engine (needs S) -->
+<script src="js/sound.js"></script>
+<!-- 4. Utilities (XP, badges, toast, confetti) -->
 <script src="js/utils.js"></script>
-<!-- 4. i18n (t, setLang, applyLang) -->
+<!-- 5. i18n (t, setLang, applyLang) -->
 <script src="js/i18n.js"></script>
 <!-- 5. Screen modules -->
 <script src="js/screens/splash.js"></script>

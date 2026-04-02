@@ -60,6 +60,7 @@ function completeMission(id) {
   addXP(75);
   earn(MISSIONS_DATA[id].badge);
   toast(t('mis_toast'));
+  playSound('complete');
   save();
   if (S.missions.length >= 3) {
     setTimeout(() => { earn('mission-master'); addXP(100); toast(t('mis_master')); save(); }, 1400);

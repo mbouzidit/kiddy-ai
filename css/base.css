@@ -69,6 +69,7 @@ html,body {
 }
 .lang-btn.active { background:var(--blue); color:white; font-weight:900; }
 .lang-btn:hover:not(.active) { background:rgba(33,150,243,.1); }
+.lang-sep { width:1px; background:rgba(0,0,0,.12); margin:4px 2px; }
 
 /* ── BUTTONS ── */
 .btn {

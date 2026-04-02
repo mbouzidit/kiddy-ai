@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "Read(//c/mbouzidi/Projects/Test claude/kiddy-ai/repo/**)"
+    ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"SPEC CHECK: Before starting this task, check the specs/ folder. If a relevant spec exists, confirm it covers the change. If no spec exists, ask the user: should I write a spec first? Skip only for pure bug fixes or CSS-only tweaks.\"}}'",
+            "statusMessage": "Checking spec requirements..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '{\"systemMessage\":\"README check: if anything changed this session (features, structure, flow, behaviour, config), update README.md now. If no update is needed, tell the user why in one line.\"}'",
+            "statusMessage": "Checking README..."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -106,6 +106,7 @@ function checkAnswer(ans, q) {
   S.qAnswered = true;
   const correct = ans === q.correct;
   if (correct) { S.qScore++; addXP(50); }
+  playSound(correct ? 'correct' : 'wrong');
 
   // Highlight buttons
   if (q.type === 'tf') {
@@ -164,7 +165,7 @@ function finishQuiz() {
   if (S.quizBest < S.qScore) S.quizBest = S.qScore;
   earn('quiz-starter'); addXP(100);
   if (S.qScore === 5) { earn('ai-genius'); addXP(200); }
-  save(); nav('quiz-results'); confetti();
+  save(); nav('quiz-results'); playSound('complete'); confetti();
 }
 
 /* ── RESULTS ── */

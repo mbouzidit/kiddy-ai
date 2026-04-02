@@ -9,7 +9,7 @@ let S = {
   badges: [], missions: [],
   quizBest: -1, trDone: false, trCount: 0,
   qScore: 0, qCurrent: 0, qAnswered: false,
-  hintUsed: false
+  hintUsed: false, muted: false
 };
 
 function save() {

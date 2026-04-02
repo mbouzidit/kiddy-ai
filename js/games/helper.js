@@ -68,10 +68,12 @@ function scPick(idx) {
     if (btn) btn.disabled = true;
     if (i === idx) {
       if (s.opts[i].ok) {
+        playSound('correct');
         btn.classList.add('correct');
         scState.score++;
         toast(t('sg_correct'));
       } else {
+        playSound('wrong');
         btn.classList.add('wrong');
         toast(t('sg_wrong'));
       }

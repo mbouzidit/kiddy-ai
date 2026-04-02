@@ -4,9 +4,11 @@
 
 /* ── XP & BADGES ── */
 function addXP(n) {
+  const prevLevel = getLevel();
   S.xp += n;
   const el = document.getElementById('d-xp');
   if (el) el.textContent = `⚡ ${S.xp} XP`;
+  if (getLevel().min > prevLevel.min) playSound('levelup');
   save();
 }
 
@@ -18,6 +20,7 @@ function earn(id) {
     const bName = S.lang === 'fr' ? b.name_fr : b.name;
     toast(`${t('badge_prefix')} ${bName}!`);
   }
+  playSound('badge');
   save();
 }
 

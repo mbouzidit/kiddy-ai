@@ -64,6 +64,7 @@ function sortTarget(catIdx) {
 
   if (item.cat === catIdx) {
     // ✅ Correct category
+    playSound('correct');
     el.classList.remove('selected'); el.classList.add('sorted');
     catEl.classList.add('correct-flash');
     setTimeout(() => catEl.classList.remove('correct-flash'), 500);
@@ -82,6 +83,7 @@ function sortTarget(catIdx) {
     }
   } else {
     // ❌ Wrong category — shake item
+    playSound('wrong');
     el.classList.remove('selected'); el.classList.add('wrong');
     setTimeout(() => el.classList.remove('wrong'), 550);
     sortState.selItem = null;

@@ -155,6 +155,7 @@ function startTraining() {
       document.getElementById('tr-robot').textContent = '🎉';
       S.trDone = true; save();
       earn('robot-trainer'); earn('data-detective'); addXP(150);
+      playSound('complete');
       toast(t('tr_toast'));
       btn.textContent = t('tr_done_btn');
       document.getElementById('tr-done').style.display = 'block';

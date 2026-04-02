@@ -7,6 +7,7 @@ function init() {
   initProfile();
   const hasSave = load();
   applyLang();
+  _applyMuteBtn();
   if (hasSave && S.name) nav('dashboard');
   else nav('splash');
 }

@@ -76,6 +76,7 @@ function mgClick(side, visualIdx) {
 
     if (leftPair === rightPair) {
       // ✅ Correct match
+      playSound('correct');
       prevEl?.classList.remove('selected'); prevEl?.classList.add('matched');
       el.classList.add('matched');
       mgState.matched++;
@@ -91,6 +92,7 @@ function mgClick(side, visualIdx) {
       }
     } else {
       // ❌ Wrong match
+      playSound('wrong');
       prevEl?.classList.remove('selected'); prevEl?.classList.add('wrong');
       el.classList.add('wrong');
       setTimeout(() => { prevEl?.classList.remove('wrong'); el.classList.remove('wrong'); }, 550);

@@ -14,6 +14,8 @@ A gamified, single-page web app that teaches children about Artificial Intellige
 - **Bilingual** — full English / French support with a flag toggle
 - **Persistent progress** — state saved to `localStorage`, survives page refresh
 - **"Next Activity" flow** — after each completion a button guides to the next activity (Health → Planet → Helper → Training → Quiz → Badges)
+- **Sound effects** — synthesised audio feedback via Web Audio API (no audio files): button clicks, correct/wrong answers, completions, badge earned, level-up
+- **Mute toggle** — 🔊/🔇 button in the top bar, preference saved to localStorage
 
 ---
 
@@ -106,6 +108,14 @@ S = {
   hintUsed: false
 }
 ```
+
+---
+
+## Specs
+
+Feature specifications live in [`specs/`](specs/). Each major feature has a spec describing its goal, behaviour, state, translations, and acceptance criteria. See [`specs/README.md`](specs/README.md) for the full index.
+
+New features must have a spec written and agreed upon **before** implementation begins.
 
 ---
 
