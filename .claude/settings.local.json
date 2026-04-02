@@ -3,7 +3,11 @@
     "allow": [
       "Skill(update-config)",
       "Skill(update-config:*)",
-      "Read(//c/mbouzidi/Projects/Test claude/kiddy-ai/repo/**)"
+      "Read(//c/mbouzidi/Projects/Test claude/kiddy-ai/repo/**)",
+      "Bash(sed \"s/t\\('//\")",
+      "Bash(sed \"s/'\\)//\")",
+      "Read(//tmp/**)",
+      "Bash(sed \"s/'$//\")"
     ]
   },
   "hooks": {

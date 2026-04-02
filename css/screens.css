@@ -118,24 +118,35 @@
 .prog-txt       { font-size:12px; color:rgba(255,255,255,.7); margin-top:5px; font-weight:600; }
 
 /* ── DASHBOARD RESET ── */
-.reset-wrap        { text-align:center; padding:18px 14px 4px; }
-.reset-btn         { background:none; border:none; font-size:12px; font-weight:700;
-                     color:rgba(255,255,255,.35); cursor:pointer; font-family:var(--font);
-                     letter-spacing:.3px; transition:color .2s; padding:6px 12px; }
-.reset-btn:hover   { color:rgba(255,255,255,.65); }
-.reset-confirm-wrap { flex-direction:column; align-items:center; gap:12px;
-                      padding:14px; margin:0 14px 14px;
-                      background:rgba(0,0,0,.25); border-radius:var(--r);
-                      border:1px solid rgba(255,255,255,.15); }
-.reset-confirm-txt  { font-size:13px; font-weight:700; color:rgba(255,255,255,.85);
-                      text-align:center; margin:0; }
-.reset-confirm-btns { display:flex; gap:10px; }
-.reset-cancel-btn   { padding:9px 20px; border:none; border-radius:50px;
-                      font-family:var(--font); font-size:13px; font-weight:800;
-                      background:rgba(255,255,255,.2); color:white; cursor:pointer; }
-.reset-yes-btn      { padding:9px 20px; border:none; border-radius:50px;
-                      font-family:var(--font); font-size:13px; font-weight:800;
-                      background:#EF5350; color:white; cursor:pointer; }
+.reset-wrap { text-align:center; padding:18px 14px 8px; }
+.reset-btn  {
+  -webkit-appearance:none; appearance:none;
+  background:rgba(255,255,255,.12); border:2px solid rgba(255,255,255,.25);
+  border-radius:50px; font-family:var(--font); font-size:13px; font-weight:800;
+  color:rgba(255,255,255,.75); cursor:pointer; padding:10px 22px;
+  transition:all .2s; touch-action:manipulation;
+}
+.reset-btn:hover { background:rgba(255,255,255,.22); color:white; }
+
+.reset-confirm-wrap { flex-direction:column; align-items:center; gap:14px;
+                      padding:18px; margin:0 14px 14px;
+                      background:rgba(0,0,0,.3); border-radius:var(--r);
+                      border:2px solid rgba(239,83,80,.35); }
+.reset-confirm-txt  { font-size:14px; font-weight:700; color:rgba(255,255,255,.9);
+                      text-align:center; margin:0; line-height:1.5; }
+.reset-confirm-btns { display:flex; gap:12px; }
+.reset-cancel-btn   {
+  -webkit-appearance:none; appearance:none; touch-action:manipulation;
+  min-height:46px; padding:12px 26px; border:none; border-radius:50px;
+  font-family:var(--font); font-size:14px; font-weight:800;
+  background:rgba(255,255,255,.22); color:white; cursor:pointer;
+}
+.reset-yes-btn      {
+  -webkit-appearance:none; appearance:none; touch-action:manipulation;
+  min-height:46px; padding:12px 26px; border:none; border-radius:50px;
+  font-family:var(--font); font-size:14px; font-weight:800;
+  background:#EF5350; color:white; cursor:pointer;
+}
 
 /* ── MISSIONS ── */
 #screen-missions { background:linear-gradient(150deg,#E8F5E9 0%,#C8E6C9 55%,#E0F2F1 100%); }
