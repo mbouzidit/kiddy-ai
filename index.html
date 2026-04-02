@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>🤖 AI Lab for Kids!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/screens.css">
+  <link rel="stylesheet" href="css/games.css">
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+<div id="toast" class="toast"></div>
+
+<!-- LANG TOGGLE -->
+<div id="lang-toggle">
+  <button id="lang-en" class="lang-btn active" onclick="setLang('en')">🇬🇧 EN</button>
+  <button id="lang-fr" class="lang-btn"        onclick="setLang('fr')">🇫🇷 FR</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 1 · SPLASH
+══════════════════════════════════════ -->
+<div id="screen-splash" class="screen active">
+  <div class="splash-bg-circles" id="splash-circles"></div>
+  <div class="splash-stars-wrap"  id="splash-stars"></div>
+  <div class="splash-robot">🤖</div>
+  <h1 class="splash-title">AI LAB<br>FOR KIDS!</h1>
+  <p  class="splash-sub" id="sp-sub">Learn about Artificial Intelligence</p>
+  <p  class="splash-tag" id="sp-tag">⚡ Explore · Train · Quiz · Discover ⚡</p>
+  <button class="splash-start" id="sp-btn" onclick="nav('profile')">🚀 Start Adventure!</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 2 · PROFILE
+══════════════════════════════════════ -->
+<div id="screen-profile" class="screen">
+  <div class="profile-card">
+    <div style="font-size:60px;margin-bottom:14px">🌟</div>
+    <div class="profile-title" id="pr-title">Who Are You, Explorer?</div>
+    <div class="profile-sub"   id="pr-sub">Enter your name to begin your AI adventure!</div>
+    <input id="name-in" class="name-input" type="text"
+           placeholder="Type your name here…" maxlength="20"
+           oninput="chkProfile()" onkeydown="if(event.key==='Enter')createProfile()">
+    <div class="ava-lbl" id="pr-ava-lbl">Choose Your Avatar</div>
+    <div class="ava-grid" id="ava-grid"></div>
+    <button id="profile-go" class="btn btn-blue btn-full btn-lg" onclick="createProfile()" disabled>
+      🚀 Let's Go!
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 3 · DASHBOARD
+══════════════════════════════════════ -->
+<div id="screen-dashboard" class="screen">
+  <div class="lab-bg" id="lab-bg"></div>
+  <div class="dash-header">
+    <div class="dash-top">
+      <div class="dash-robot">
+        <span class="dash-robo-ico">🤖</span>
+        <div class="speech-bbl" id="sparky-msg">Welcome!</div>
+      </div>
+      <div class="dash-right">
+        <span class="dash-ava" id="d-ava">🧑</span>
+        <span class="xp-chip"  id="d-xp">⚡ 0 XP</span>
+      </div>
+    </div>
+    <div class="dash-title" id="d-title">THE AI LAB DASHBOARD</div>
+  </div>
+  <div class="dash-body">
+    <div class="sect-lbl" id="d-sect">Choose your mission, <span id="d-name">Explorer</span>!</div>
+    <div class="dash-grid">
+      <div class="dc g" onclick="nav('missions')">
+        <div class="dc-ico">🌍</div>
+        <div class="dc-ttl" id="dc1">How AI Helps Us</div>
+        <div class="dc-play">▶</div>
+      </div>
+      <div class="dc p" onclick="nav('training')">
+        <div class="dc-ico">🦾</div>
+        <div class="dc-ttl" id="dc2">Training Workshop</div>
+        <div class="dc-play">▶</div>
+      </div>
+      <div class="dc o" onclick="nav('quiz-intro')">
+        <div class="dc-ico">🎯</div>
+        <div class="dc-ttl" id="dc3">AI Quiz Challenge</div>
+        <div class="dc-play">▶</div>
+      </div>
+      <div class="dc y" onclick="nav('badges')">
+        <div class="dc-ico">🏆</div>
+        <div class="dc-ttl" id="dc4">Achievement Gallery</div>
+        <div class="dc-play">▶</div>
+      </div>
+    </div>
+    <div class="card prog-card">
+      <div class="prog-lbl" id="d-prog-lbl">Your Progress</div>
+      <div class="prog-wrap-dash">
+        <div class="prog-fill-dash" id="d-prog" style="width:0%"></div>
+      </div>
+      <div class="prog-txt" id="d-prog-txt">0 / 200 XP</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 4 · MISSIONS
+══════════════════════════════════════ -->
+<div id="screen-missions" class="screen">
+  <div class="mis-header">
+    <div class="mis-head-row">
+      <button class="back-btn" onclick="nav('dashboard')">←</button>
+    </div>
+    <div class="mis-h-title" id="m-title">🌟 How AI Helps Us</div>
+    <div class="mis-h-sub"   id="m-sub">Discover the amazing ways AI makes the world better!</div>
+  </div>
+  <div class="mis-list">
+    <div class="mis-card h" onclick="showMission('health')">
+      <div class="mis-ico">🏥</div>
+      <div class="mis-info">
+        <div class="mis-ttl"  id="m-h-ttl">Health Hero</div>
+        <div class="mis-desc" id="m-h-desc">AI helps doctors find diseases faster and create new medicines!</div>
+        <span class="mis-pill" id="mp-health">+75 XP · Learn More →</span>
+      </div>
+    </div>
+    <div class="mis-card p" onclick="showMission('planet')">
+      <div class="mis-ico">🌱</div>
+      <div class="mis-info">
+        <div class="mis-ttl"  id="m-p-ttl">Planet Protector</div>
+        <div class="mis-desc" id="m-p-desc">AI helps us save energy, fight climate change, and protect wildlife!</div>
+        <span class="mis-pill" id="mp-planet">+75 XP · Learn More →</span>
+      </div>
+    </div>
+    <div class="mis-card s" onclick="showMission('helper')">
+      <div class="mis-ico">🤝</div>
+      <div class="mis-info">
+        <div class="mis-ttl"  id="m-s-ttl">Smart Helper</div>
+        <div class="mis-desc" id="m-s-desc">AI assists people with disabilities and helps everyone live more independently!</div>
+        <span class="mis-pill" id="mp-helper">+75 XP · Learn More →</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 5 · MISSION DETAIL (dynamic)
+══════════════════════════════════════ -->
+<div id="screen-mission-detail" class="screen"></div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 6 · TRAINING
+══════════════════════════════════════ -->
+<div id="screen-training" class="screen">
+  <div class="tr-header">
+    <div class="tr-head-row">
+      <button class="back-btn" onclick="nav('dashboard')">←</button>
+    </div>
+    <div class="tr-h-title" id="tr-title">🤖 Robot Academy</div>
+    <div class="tr-h-sub"   id="tr-sub">TRAINING BOX: TEACH YOUR ROBOT!</div>
+  </div>
+  <div class="tr-layout">
+    <!-- Data panel -->
+    <div class="data-panel">
+      <div class="panel-ttl" id="tr-dp-ttl">📦 DATA SOURCES</div>
+      <div class="drag-grid" id="drag-grid"></div>
+      <div class="items-ctr">
+        <span id="tr-added-lbl">ITEMS ADDED:</span> <span id="items-cnt">0</span>
+      </div>
+      <div id="tr-drag-hint" style="font-size:11px;color:rgba(255,255,255,.75);text-align:center;margin-top:5px;font-weight:700">
+        Drag &amp; Drop items to train your robot!
+      </div>
+    </div>
+    <!-- Robot panel -->
+    <div class="robot-panel">
+      <div class="panel-ttl" id="tr-rp-ttl">🧠 ROBOT BRAIN</div>
+      <div class="drop-zone" id="drop-zone"
+           ondragover="doDragOver(event)" ondrop="doDrop(event)" ondragleave="doDragLeave(event)">
+        <div class="drop-lbl" id="drop-lbl">Drop items here to train!</div>
+        <div class="dropped-disp" id="dropped-disp"></div>
+      </div>
+      <div class="robo-area">
+        <span class="robo-think" id="tr-robot">🤖</span>
+        <div id="robo-bubble-wrap"></div>
+      </div>
+      <div class="tr-prog-wrap">
+        <div class="tr-prog-fill" id="tr-prog" style="width:0%"></div>
+      </div>
+      <div class="tr-stat" id="tr-stat">LEARNING PROGRESS: 0%</div>
+      <button class="tr-btn" id="tr-btn" onclick="startTraining()" disabled>▶ START TRAINING!</button>
+    </div>
+  </div>
+  <!-- Completion card -->
+  <div class="tr-done-card">
+    <div class="tr-done-inner" id="tr-done">
+      <div style="font-size:46px">🎉</div>
+      <div id="tr-done-title" style="font-size:20px;font-weight:900;color:#4CAF50;margin:8px 0">Training Complete!</div>
+      <div id="tr-done-desc"  style="font-size:14px;color:#546e7a;margin-bottom:12px">Your robot has learned from your data — amazing work!</div>
+      <div style="margin-bottom:14px"><span class="xp-chip">+150 XP Earned!</span></div>
+    </div>
+  </div>
+  <!-- Test phase -->
+  <div class="tr-test-wrap">
+    <div class="tr-test-inner" id="tr-test">
+      <div style="font-size:40px;margin-bottom:8px">🧪</div>
+      <div class="tr-test-title" id="tr-test-title">Test Your Robot!</div>
+      <div class="tr-test-sub"   id="tr-test-sub">Tap items to see if your robot recognises them!</div>
+      <div class="tr-test-grid"  id="tr-test-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 7 · QUIZ INTRO
+══════════════════════════════════════ -->
+<div id="screen-quiz-intro" class="screen">
+  <div style="align-self:flex-start;display:flex;align-items:center;gap:10px;margin-bottom:10px">
+    <button class="back-btn dark" onclick="nav('dashboard')">←</button>
+    <span id="qi-lbl" style="font-size:18px;font-weight:900;color:#1e2d3d">AI Quiz</span>
+  </div>
+  <div class="qi-ico">🧠</div>
+  <div class="qi-title" id="qi-title">AI Super-Power Quiz!</div>
+  <div class="qi-sub"   id="qi-sub">Test your knowledge about Artificial Intelligence with 5 fun questions!</div>
+  <div class="qi-rules">
+    <div class="qi-rule"><span class="qi-rule-ico">⭐</span> <span id="qi-r1">Earn a star for each correct answer</span></div>
+    <div class="qi-rule"><span class="qi-rule-ico">⚡</span> <span id="qi-r2">+50 XP per correct answer</span></div>
+    <div class="qi-rule"><span class="qi-rule-ico">💡</span> <span id="qi-r3">Use the hint button once for a clue</span></div>
+    <div class="qi-rule"><span class="qi-rule-ico">🏆</span> <span id="qi-r4">Score 5/5 to earn the AI Genius badge!</span></div>
+  </div>
+  <div class="qi-best"><span id="qi-best-lbl">Best score:</span> <span id="qi-best">—</span></div>
+  <button class="btn btn-purple btn-lg" id="qi-btn" onclick="startQuiz()">🎯 Start Quiz!</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 8 · QUIZ
+══════════════════════════════════════ -->
+<div id="screen-quiz" class="screen">
+  <div class="qz-clouds" id="qz-clouds"></div>
+  <div class="qz-header">
+    <div class="qz-top-row">
+      <div class="qz-ctr" id="qz-ctr">Question 1 of 5</div>
+      <button class="hint-btn" id="hint-btn" onclick="useHint()">💡 Hint</button>
+    </div>
+    <div class="qz-stars" id="qz-stars"></div>
+    <div class="qz-title" id="qz-title">AI Super-Power Quiz</div>
+  </div>
+  <div class="qz-hint-box" id="qz-hint-box"></div>
+  <div class="qz-q-box">
+    <span class="qz-char" id="qz-char">🤔</span>
+    <div  class="qz-txt"  id="qz-txt">Loading…</div>
+  </div>
+  <div class="qz-opts" id="qz-opts"></div>
+  <div class="qz-feedback" id="qz-fb">
+    <div class="fb-ico" id="fb-ico">✅</div>
+    <div class="fb-txt" id="fb-txt">
+      <h4 id="fb-title">Correct!</h4>
+      <p  id="fb-expl">Great job!</p>
+    </div>
+  </div>
+  <div class="qz-next-wrap">
+    <button class="btn btn-yellow btn-full btn-lg" id="qz-next" onclick="nextQ()" style="display:none">
+      Next Question! →
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 9 · QUIZ RESULTS
+══════════════════════════════════════ -->
+<div id="screen-quiz-results" class="screen">
+  <div class="res-lbl"    id="res-lbl">🏆 QUIZ RESULTS CELEBRATION</div>
+  <div class="res-trophy">🏆</div>
+  <div class="res-score"  id="res-score">0/5 Correct!</div>
+  <div class="res-title"  id="res-title">You're an <span class="ai-text">AI</span> Explorer!</div>
+  <div class="res-stars"  id="res-stars">☆☆☆☆☆</div>
+  <div class="res-xp"     id="res-xp">+0 XP Earned!</div>
+  <div class="res-btns">
+    <button class="btn btn-green  btn-lg" id="res-play"   onclick="startQuiz()">🔄 Play Again</button>
+    <button class="btn btn-purple btn-lg" id="res-badges" onclick="nav('badges')">🏅 Go to My Badges</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 10 · BADGES
+══════════════════════════════════════ -->
+<div id="screen-badges" class="screen">
+  <div class="bdg-header">
+    <div class="bdg-head-row">
+      <button class="back-btn" onclick="nav('dashboard')">←</button>
+    </div>
+    <div class="bdg-h-title" id="bdg-title">MY SUPER BADGES</div>
+    <div class="bdg-lvl-row">
+      <span class="bdg-lvl-txt"  id="bdg-lvl-lbl">🌟 Level:</span>
+      <span class="bdg-lvl-chip" id="bdg-lvl">Junior Scientist</span>
+    </div>
+    <div class="bdg-xp-row">
+      <span class="bdg-xp-lbl" id="bdg-xp-l">0 XP</span>
+      <div style="flex:1" class="prog-wrap">
+        <div class="prog-fill" id="bdg-xp-bar" style="background:#FFD700;width:0%"></div>
+      </div>
+      <span class="bdg-xp-lbl" id="bdg-xp-r">200 XP</span>
+    </div>
+  </div>
+  <div class="bdg-grid" id="bdg-grid"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     BOTTOM NAV
+══════════════════════════════════════ -->
+<div id="bottom-nav">
+  <div class="nav-item" id="n-home"     onclick="nav('dashboard')"> <span class="n-icon">🏠</span><span class="n-lbl" id="n-home-lbl">Home</span></div>
+  <div class="nav-item" id="n-missions" onclick="nav('missions')">  <span class="n-icon">🌍</span><span class="n-lbl" id="n-mis-lbl">Missions</span></div>
+  <div class="nav-item" id="n-training" onclick="nav('training')">  <span class="n-icon">🦾</span><span class="n-lbl" id="n-lab-lbl">Lab</span></div>
+  <div class="nav-item" id="n-quiz"     onclick="nav('quiz-intro')"><span class="n-icon">🎯</span><span class="n-lbl" id="n-quiz-lbl">Quiz</span></div>
+  <div class="nav-item" id="n-badges"   onclick="nav('badges')">    <span class="n-icon">🏆</span><span class="n-lbl" id="n-bdg-lbl">Badges</span></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCRIPTS (dependency order)
+══════════════════════════════════════ -->
+<!-- 1. Data & constants -->
+<script src="js/data.js"></script>
+<!-- 2. State (S, save, load) -->
+<script src="js/state.js"></script>
+<!-- 3. Utilities (XP, badges, toast, confetti) -->
+<script src="js/utils.js"></script>
+<!-- 4. i18n (t, setLang, applyLang) -->
+<script src="js/i18n.js"></script>
+<!-- 5. Screen modules -->
+<script src="js/screens/splash.js"></script>
+<script src="js/screens/profile.js"></script>
+<script src="js/screens/dashboard.js"></script>
+<!-- 6. Game modules (before missions.js which calls them) -->
+<script src="js/games/health.js"></script>
+<script src="js/games/planet.js"></script>
+<script src="js/games/helper.js"></script>
+<!-- 7. Remaining screens -->
+<script src="js/screens/missions.js"></script>
+<script src="js/screens/training.js"></script>
+<script src="js/screens/quiz.js"></script>
+<script src="js/screens/badges.js"></script>
+<!-- 8. Router -->
+<script src="js/nav.js"></script>
+<!-- 9. Entry point -->
+<script src="js/main.js"></script>
+
+</body>
+</html>
