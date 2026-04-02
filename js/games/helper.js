@@ -45,7 +45,7 @@ function renderScenario() {
       <div class="sc-desc">${s[L] || s.en}</div>
       <div class="sc-opts">
         ${s.opts.map((o, i) => `
-          <button class="sc-opt" id="so-${i}" onclick="scPick(${i})">
+          <button class="sc-opt" id="so-${i}">
             ${o[L] || o.en}
           </button>`).join('')}
       </div>
@@ -57,16 +57,22 @@ function renderScenario() {
 
   scState.answered = false;
   speak(s[S.lang] || s.en);
-  // attach read icons on each option button
+  // wrap each option button in a div, place read icon as sibling (never inside button)
   s.opts.forEach((o, i) => {
     const btn = document.getElementById('so-' + i);
     if (!btn) return;
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'position:relative;display:block;';
+    btn.parentNode.insertBefore(wrap, btn);
+    wrap.appendChild(btn);
+    btn.style.width = '100%';
+    btn.addEventListener('click', () => scPick(i));
     const r = document.createElement('span');
     r.className = 'item-read-btn';
     r.textContent = '🔊';
     r.setAttribute('aria-label', 'Read aloud');
     r.addEventListener('click', function(e) { e.stopPropagation(); speakOnce(o[S.lang] || o.en); });
-    btn.appendChild(r);
+    wrap.appendChild(r);
   });
 }
 

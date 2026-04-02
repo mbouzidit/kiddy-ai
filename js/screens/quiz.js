@@ -96,17 +96,20 @@ function readQuestion() {
 }
 
 function _mkBtn(cls, id, label, handler, speakText) {
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:relative;display:block;';
   const b = document.createElement('button');
-  b.className = cls; b.id = id;
-  b.onclick = function(e) { if (e.target.closest('.item-read-btn')) return; handler(e); };
+  b.className = cls; b.id = id; b.onclick = handler;
+  b.style.width = '100%';
   b.appendChild(document.createTextNode(label));
+  wrap.appendChild(b);
   const r = document.createElement('span');
   r.className = 'item-read-btn';
   r.textContent = '🔊';
   r.setAttribute('aria-label', 'Read aloud');
   r.addEventListener('click', function(e) { e.stopPropagation(); speakOnce(speakText || label); });
-  b.appendChild(r);
-  return b;
+  wrap.appendChild(r);
+  return wrap;
 }
 
 /* ── HINT ── */

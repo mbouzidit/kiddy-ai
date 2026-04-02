@@ -16,7 +16,10 @@
       "Bash(sed \"s/playSound\\('//\")",
       "Read(//^const T = /**)",
       "Bash(find js:*)",
-      "Bash(grep -n \"^\\\\s*[àâäéèêëïîôöùûüçœæ][a-z_]*\\\\s*:\" js/*.js js/screens/*.js js/games/*.js)"
+      "Bash(grep -n \"^\\\\s*[àâäéèêëïîôöùûüçœæ][a-z_]*\\\\s*:\" js/*.js js/screens/*.js js/games/*.js)",
+      "Read(//c/mbouzidi/Projects/Test/ claude/kiddy-ai/repo/kiddy-ai/**)",
+      "Read(//c/mbouzidi/Projects/Test/ claude/kiddy-ai/repo/kiddy-ai/js/**)",
+      "Read(//c/mbouzidi/Projects/Test/ claude/kiddy-ai/repo/kiddy-ai/css/**)"
     ]
   },
   "hooks": {
@@ -51,7 +54,7 @@
           },
           {
             "type": "command",
-            "command": "printf '{\"systemMessage\":\"Read-aloud coverage check: for every new user-facing text element added this session — (1) dynamically rendered questions, instructions, scenarios, and option/answer buttons must have a speak() auto-read call AND/OR a 🔊 item-read-btn/sort-read-btn span (tap-to-read); (2) draggable game cards must include the read span with stopPropagation on touchstart/click; (3) new static HTML text areas (headings, description boxes) should have an item-read-btn button nearby or be covered by the global click listener; (4) speakOnce() must be used for explicit tap-to-read buttons (bypasses S.tts), speak() for auto-reads (respects S.tts); (5) CRITICAL — every read button click handler must call e.stopPropagation() to prevent triggering the parent button onclick; the global click listener already skips .item-read-btn and .sort-read-btn targets — never remove these guards. If any violation exists, fix it before finishing.\"}'",
+            "command": "printf '{\"systemMessage\":\"Read-aloud coverage check: for every new user-facing text element added this session — (1) dynamically rendered questions, instructions, scenarios, and option/answer buttons must have a speak() auto-read call AND/OR a 🔊 item-read-btn/sort-read-btn span (tap-to-read); (2) draggable game cards must include the read span with stopPropagation on touchstart/click; (3) new static HTML text areas (headings, description boxes) should have an item-read-btn button nearby or be covered by the global click listener; (4) speakOnce() must be used for explicit tap-to-read buttons (bypasses S.tts), speak() for auto-reads (respects S.tts); (5) CRITICAL — never place a read span inside a button element. Always use a wrapper div with position:relative as the common parent, with the button (width:100%) and the read span as siblings inside it. The read span calls e.stopPropagation() on click. The global click listener already skips .item-read-btn and .sort-read-btn targets — never remove these guards. If any violation exists, fix it before finishing.\"}'",
             "statusMessage": "Checking read-aloud coverage..."
           }
         ]
