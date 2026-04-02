@@ -2,6 +2,21 @@
    BADGES — level + XP progress + badge grid
 ════════════════════════════════════════ */
 
+const BADGE_DEST = {
+  'ai-explorer':     () => nav('missions'),
+  'health-hero':     () => showMission('health'),
+  'planet-pro':      () => showMission('planet'),
+  'smart-helper':    () => showMission('helper'),
+  'nav-master':      () => showMission('labyrinth'),
+  'mission-master':  () => nav('missions'),
+  'data-detective':  () => nav('training'),
+  'robot-trainer':   () => nav('training'),
+  'quiz-starter':    () => nav('quiz-intro'),
+  'ai-genius':       () => nav('quiz-intro'),
+  'bias-buster':     () => launchBiasGame(),
+  'adversarial-pro': () => launchAdversarialGame(),
+};
+
 function loadBadges() {
   const levels = LEVELS_BY_MODE[_mode] || LEVELS;
   const lvl  = getLevel();
@@ -29,6 +44,11 @@ function loadBadges() {
         ${b.ico}
       </div>
       <div class="bdg-name">${bName}</div>`;
+    const dest = BADGE_DEST[b.id];
+    if (dest) {
+      wrap.classList.add('clickable');
+      wrap.addEventListener('click', dest);
+    }
     g.appendChild(wrap);
   });
 }

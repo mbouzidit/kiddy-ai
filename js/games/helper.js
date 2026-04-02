@@ -56,6 +56,18 @@ function renderScenario() {
     </div>`;
 
   scState.answered = false;
+  speak(s[S.lang] || s.en);
+  // attach read icons on each option button
+  s.opts.forEach((o, i) => {
+    const btn = document.getElementById('so-' + i);
+    if (!btn) return;
+    const r = document.createElement('span');
+    r.className = 'item-read-btn';
+    r.textContent = '🔊';
+    r.setAttribute('aria-label', 'Read aloud');
+    r.addEventListener('click', function(e) { e.stopPropagation(); speakOnce(o[S.lang] || o.en); });
+    btn.appendChild(r);
+  });
 }
 
 function scPick(idx) {
@@ -72,10 +84,12 @@ function scPick(idx) {
         btn.classList.add('correct');
         scState.score++;
         toast(t('sg_correct'));
+        speak(t('sg_correct'));
       } else {
         playSound('wrong');
         btn.classList.add('wrong');
         toast(t('sg_wrong'));
+        speak(t('sg_wrong'));
       }
     } else if (s.opts[i].ok) {
       // Reveal correct answer after a short delay

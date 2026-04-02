@@ -23,9 +23,10 @@ Expert mode also includes two exclusive games: **Spot the Bias** and **Adversari
 ## Features
 
 - **3 Age Modes** — Junior (4–8), Explorer (8–12), Expert (12–14) with isolated profiles and content
-- **3 Mission Activities** — themed mini-games that each unlock a badge and +75 XP; replaying awards +25 XP (once per session)
+- **4 Mission Activities** — themed mini-games that each unlock a badge and +75 XP; replaying awards +25 XP (once per session)
 - **Robot Training Workshop** — drag-and-drop data into a robot brain, train to 100%, then test what it learned (with completion summary)
 - **AI Quiz** — 5 questions sampled from a pool (5 for Junior, 10 for Explorer/Expert); hints, per-answer feedback, results celebration; +25 XP replay bonus for runs 2–4
+- **Robot Navigator** — maze game (5×5 / 8×8 / 12×12 by mode): navigate the robot to the exit using arrow keys or d-pad; Expert fog-of-war; Junior hint button; earns `nav-master` badge + 75 XP
 - **Expert: Spot the Bias** — 3 scenarios: label each AI decision as Biased / Fair / Uncertain; earn `bias-buster` badge + 100 XP
 - **Expert: Adversarial Challenge** — 3 scenarios: pick which change fools the AI; earn `adversarial-pro` badge + 75 XP
 - **10 Base Badges + 4 Expert Badges** — earned by completing activities and hitting milestones
@@ -80,6 +81,7 @@ kiddy-ai/
         ├── health.js       # Health Hero — match AI solutions to health problems (3/4/6 pairs by mode)
         ├── planet.js       # Planet Protector — sort AI tools into categories (2/3/4 cats by mode)
         ├── helper.js       # Smart Helper — pick the right AI for each scenario
+        ├── labyrinth.js    # Robot Navigator — maze game (5×5/8×8/12×12, fog-of-war Expert, hint Junior)
         ├── bias.js         # Spot the Bias — Expert only (3 scenarios)
         └── adversarial.js  # Adversarial Challenge — Expert only (3 scenarios)
 ```
@@ -93,7 +95,7 @@ Splash
   └─ Mode Select (Junior / Explorer / Expert)
         └─ Profile (name + avatar)
               └─ Dashboard
-                    ├─ Missions → Health Hero → Planet Protector → Smart Helper
+                    ├─ Missions → Health Hero → Planet Protector → Smart Helper → Robot Navigator
                     │             └─ [Expert only] Bias Detector + Adversarial Challenge
                     ├─ Training Workshop
                     ├─ Quiz → Results
@@ -109,7 +111,8 @@ Splash
 | Health Hero | Match health problems to AI solutions (3/4/6 pairs by mode) | +75 | health-hero |
 | Planet Protector | Sort AI tools into categories (2/3/4 cats by mode) | +75 | planet-pro |
 | Smart Helper | Pick the best AI tool for 3 scenarios | +75 | smart-helper |
-| All 3 missions | Bonus for completing all missions | +100 | mission-master |
+| Robot Navigator | Navigate the maze (5×5/8×8/12×12 by mode) | +75 | nav-master |
+| All 4 missions | Bonus for completing all missions | +100 | mission-master |
 | Training Workshop | Drag 8 items into the robot brain, then train to 100% | +150 | robot-trainer, data-detective |
 | Quiz (any score) | 5 questions sampled from pool, +50 XP per correct answer | +100 base | quiz-starter |
 | Quiz perfect score | Score 5/5 | +200 bonus | ai-genius |

@@ -80,10 +80,14 @@ function confetti() {
 }
 
 /* ── TTS (READ ALOUD) ── */
+function _stripEmoji(text) {
+  return (text || '').replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}\u{2300}-\u{23FF}\u{2B00}-\u{2BFF}\u{FE00}-\u{FEFF}\u{1F900}-\u{1F9FF}]/gu, '').replace(/\s+/g, ' ').trim();
+}
+
 function speak(text) {
   if (!S.tts || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
+  const u = new SpeechSynthesisUtterance(_stripEmoji(text));
   u.lang = S.lang === 'fr' ? 'fr-FR' : 'en-US';
   window.speechSynthesis.speak(u);
 }
@@ -91,7 +95,7 @@ function speak(text) {
 function speakOnce(text) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
+  const u = new SpeechSynthesisUtterance(_stripEmoji(text));
   u.lang = S.lang === 'fr' ? 'fr-FR' : 'en-US';
   window.speechSynthesis.speak(u);
 }

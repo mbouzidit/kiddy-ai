@@ -30,6 +30,8 @@ This folder contains feature specifications for AI Lab for Kids. Write or update
 | [spec-22-game-bias-detector.md](spec-22-game-bias-detector.md) | Expert game: Spot the Bias — classify AI decisions as Biased/Fair/Uncertain |
 | [spec-23-game-adversarial.md](spec-23-game-adversarial.md) | Expert game: Adversarial Challenge — find the modification that fools an AI |
 | [spec-24-read-aloud.md](spec-24-read-aloud.md) | Read Aloud — browser TTS via `speechSynthesis`, no API keys, EN/FR voices |
+| [spec-25-game-labyrinth.md](spec-25-game-labyrinth.md) | Robot Navigator — maze game teaching AI pathfinding/navigation, all 3 modes |
+| [spec-26-badge-navigation.md](spec-26-badge-navigation.md) | Badge click navigation — clicking a badge goes to its related activity |
 
 ## Spec Format
 

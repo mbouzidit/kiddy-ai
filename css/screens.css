@@ -186,9 +186,10 @@
 .mis-list     { padding:0 14px; display:flex; flex-direction:column; gap:14px; }
 .mis-card     { border-radius:var(--r); padding:22px; cursor:pointer; transition:all .28s; box-shadow:0 6px 22px rgba(0,0,0,.12); display:flex; align-items:center; gap:18px; }
 .mis-card:hover  { transform:translateY(-4px); box-shadow:0 12px 34px rgba(0,0,0,.2); }
-.mis-card.h { background:linear-gradient(135deg,#1565C0,#42A5F5); }
-.mis-card.p { background:linear-gradient(135deg,#2E7D32,#66BB6A); }
-.mis-card.s { background:linear-gradient(135deg,#E65100,#FFA726); }
+.mis-card.h   { background:linear-gradient(135deg,#1565C0,#42A5F5); }
+.mis-card.p   { background:linear-gradient(135deg,#2E7D32,#66BB6A); }
+.mis-card.s   { background:linear-gradient(135deg,#E65100,#FFA726); }
+.mis-card.lab { background:linear-gradient(135deg,#1A237E,#7E57C2); }
 .mis-ico  { font-size:52px; flex-shrink:0; }
 .mis-info { flex:1; }
 .mis-ttl  { font-size:20px; font-weight:900; color:white; margin-bottom:5px; }
@@ -301,7 +302,23 @@
 .qz-txt       { font-size:17px; font-weight:800; color:var(--dark-text); line-height:1.55; text-align:center; }
 .qz-opts      { padding:0 14px; display:flex; flex-direction:column; gap:10px; margin-bottom:14px; position:relative; z-index:1; }
 .qz-opts.g2   { display:grid; grid-template-columns:1fr 1fr; }
-.opt-btn      { padding:15px 18px; border:none; border-radius:var(--r-sm); font-family:var(--font); font-size:15px; font-weight:800; cursor:pointer; transition:all .22s; display:flex; align-items:center; gap:9px; color:white; text-align:left; }
+.opt-btn      { padding:15px 18px; border:none; border-radius:var(--r-sm); font-family:var(--font); font-size:15px; font-weight:800; cursor:pointer; transition:all .22s; display:flex; align-items:center; gap:9px; color:white; text-align:left; position:relative; }
+/* ── READ-ALOUD ICON (shared by quiz question, opts, game cards) ── */
+.item-read-btn {
+  position:absolute; top:6px; right:6px;
+  width:26px; height:26px; border-radius:50%; border:none; cursor:pointer;
+  background:rgba(255,255,255,.28); font-size:13px; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .18s, transform .15s; z-index:4; flex-shrink:0;
+  user-select:none; -webkit-user-select:none;
+}
+.item-read-btn:hover  { background:rgba(255,255,255,.5);  transform:scale(1.15); }
+.item-read-btn:active { background:rgba(255,255,255,.7);  transform:scale(.9); }
+/* On white-background cards (sc-opt, qz-q-box) use blue tint instead */
+.qz-q-box .item-read-btn,
+.sc-opt   .item-read-btn { background:rgba(33,150,243,.14); }
+.qz-q-box .item-read-btn:hover,
+.sc-opt   .item-read-btn:hover { background:rgba(33,150,243,.28); }
 .opt-btn:hover  { transform:translateX(4px); filter:brightness(1.1); }
 .opt-btn:active { transform:scale(.97); }
 .opt-btn.correct { outline:4px solid white; transform:scale(1.02); }
@@ -355,6 +372,8 @@
 .bdg-circle.off::after { content:'🔒'; position:absolute; font-size:13px; bottom:-2px; right:-3px; }
 @keyframes bdgGlow { from{box-shadow:0 4px 14px rgba(0,0,0,.18)} to{box-shadow:0 4px 22px rgba(255,215,0,.45)} }
 .bdg-name { font-size:9px; font-weight:800; color:var(--dark-text); text-align:center; line-height:1.3; }
+.bdg-item.clickable          { cursor:pointer; }
+.bdg-item.clickable:hover .bdg-circle { transform:scale(1.12); }
 
 /* ── EXPERT MISSION CARDS ── */
 .mis-card.bias { border-left:5px solid #3F51B5; }

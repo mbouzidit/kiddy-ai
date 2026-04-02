@@ -45,6 +45,17 @@ function _renderBiasScenario() {
       <button class="btn btn-blue btn-full btn-lg" id="bs-next" style="display:none;margin-top:12px"
               onclick="_nextBias()">${biasIdx + 1 < BIAS_SCENARIOS.length ? '→ Next Scenario' : t('bs_done')}</button>
     </div>`;
+  speak(context + '. ' + decision);
+  const scEl = wrap.querySelector('.bs-scenario');
+  if (scEl) {
+    scEl.style.position = 'relative';
+    const r = document.createElement('span');
+    r.className = 'item-read-btn';
+    r.textContent = '🔊';
+    r.setAttribute('aria-label', 'Read aloud');
+    r.addEventListener('click', function(e) { e.stopPropagation(); speakOnce(context + '. ' + decision); });
+    scEl.appendChild(r);
+  }
 }
 
 function _checkBias(answer) {
@@ -53,6 +64,7 @@ function _checkBias(answer) {
   const ok  = answer === sc.answer;
   if (ok) biasCorrect++;
   playSound(ok ? 'correct' : 'wrong');
+  speak(ok ? t('bs_correct') : t('bs_wrong'));
 
   const fb = document.getElementById('bs-fb');
   if (fb) {

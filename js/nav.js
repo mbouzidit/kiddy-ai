@@ -2,6 +2,18 @@
    NAV — screen routing
 ════════════════════════════════════════ */
 
+/* Screen title keys spoken on navigation (excludes screens that auto-read their own content) */
+const _SCREEN_SPEAK = {
+  'mode-select':   'ms_title',
+  profile:         'pr_title',
+  dashboard:       'd_title',
+  missions:        'm_title',
+  training:        'tr_title',
+  'quiz-intro':    'qi_title',
+  'quiz-results':  'res_lbl',
+  badges:          'bdg_title',
+};
+
 const NAV_MAP = {
   dashboard:        'home',
   missions:         'missions',
@@ -18,6 +30,7 @@ const NAV_MAP = {
 const NO_NAV = ['splash', 'mode-select', 'profile'];
 
 function nav(id) {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const el = document.getElementById('screen-' + id);
   if (el) { el.classList.add('active'); window.scrollTo(0, 0); el.scrollTop = 0; }
@@ -31,6 +44,7 @@ function nav(id) {
   if (nk) { const ni = document.getElementById('n-' + nk); if (ni) ni.classList.add('active'); }
 
   onLoad(id);
+  if (_SCREEN_SPEAK[id]) setTimeout(() => speak(t(_SCREEN_SPEAK[id])), 250);
 }
 
 function onLoad(id) {

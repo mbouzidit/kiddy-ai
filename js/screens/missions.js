@@ -4,7 +4,7 @@
 
 function loadMissions() {
   earn('ai-explorer');
-  ['health', 'planet', 'helper'].forEach(id => {
+  ['health', 'planet', 'helper', 'labyrinth'].forEach(id => {
     const el = document.getElementById('mp-' + id);
     if (S.missions.includes(id)) {
       el.textContent = t('mis_done'); el.classList.add('done');
@@ -82,9 +82,10 @@ function launchMissionGame(id) {
   const gw   = document.getElementById('md-game');
   gw.style.display = 'block';
   const done = S.missions.includes(id);
-  if (id === 'health') buildHealthGame(gw, id, done);
-  if (id === 'planet') buildPlanetGame(gw, id, done);
-  if (id === 'helper') buildHelperGame(gw, id, done);
+  if (id === 'health')     buildHealthGame(gw, id, done);
+  if (id === 'planet')     buildPlanetGame(gw, id, done);
+  if (id === 'helper')     buildHelperGame(gw, id, done);
+  if (id === 'labyrinth')  buildLabyrinthGame(gw, id, done);
 }
 
 function completeMission(id) {
@@ -109,7 +110,7 @@ function completeMission(id) {
 }
 
 function _showNextMissionBtn(id) {
-  const nextMap = { health: 'planet', planet: 'helper' };
+  const nextMap = { health: 'planet', planet: 'helper', helper: 'labyrinth' };
   const gw = document.querySelector('#md-game .game-wrap') ||
              document.querySelector('#sc-final .game-wrap');
   if (!gw) return;

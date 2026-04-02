@@ -47,6 +47,17 @@ function _renderAdvScenario() {
       <button class="btn btn-blue btn-full btn-lg" id="adv-next" style="display:none;margin-top:12px"
               onclick="_nextAdv()">${advIdx + 1 < ADVERSARIAL_SCENARIOS.length ? '→ Next Scenario' : t('adv_done')}</button>
     </div>`;
+  speak(context + '. ' + question);
+  const scEl = wrap.querySelector('.bs-scenario');
+  if (scEl) {
+    scEl.style.position = 'relative';
+    const r = document.createElement('span');
+    r.className = 'item-read-btn';
+    r.textContent = '🔊';
+    r.setAttribute('aria-label', 'Read aloud');
+    r.addEventListener('click', function(e) { e.stopPropagation(); speakOnce(context + '. ' + question); });
+    scEl.appendChild(r);
+  }
 }
 
 function _checkAdv(idx) {
@@ -55,6 +66,7 @@ function _checkAdv(idx) {
   const ok  = sc.opts[idx].ok;
   if (ok) advCorrect++;
   playSound(ok ? 'correct' : 'wrong');
+  speak(ok ? t('adv_correct') : t('adv_wrong'));
 
   const fb = document.getElementById('adv-fb');
   if (fb) {

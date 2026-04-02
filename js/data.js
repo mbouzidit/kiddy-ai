@@ -43,6 +43,7 @@ en: {
   mis_master:"🏆 Mission Master Badge! +100 XP",
   mis_next_planet:"🌱 Next: Planet Protector →",
   mis_next_helper:"🤝 Next: Smart Helper →",
+  mis_next_labyrinth:"🤖 Next: Robot Navigator →",
   mis_next_training:"🦾 Next: Training Workshop →",
   tr_next_quiz:"🎯 Next: Take the Quiz! →",
   mg_play:"🎮 Play the Mini-Game!",
@@ -148,7 +149,12 @@ en: {
   adv_title:"Adversarial Challenge! 🎯", adv_inst:"Which change would fool this AI?",
   adv_correct:"You fooled the AI! ✅", adv_wrong:"Not quite — the AI wasn't fooled.",
   adv_done:"🎯 Adversarial Master!", adv_of:"of",
-  m_adv_ttl:"Adversarial Challenge", m_adv_desc:"Can you trick an AI into a wrong decision?"
+  m_adv_ttl:"Adversarial Challenge", m_adv_desc:"Can you trick an AI into a wrong decision?",
+  m_lab_ttl:"Robot Navigator", m_lab_desc:"Guide a robot through a maze and learn how AI navigates the world!",
+  lab_title:"Robot Navigator 🤖", lab_inst:"Guide the robot 🤖 to the exit 🏁!",
+  lab_hint_btn:"💡 Hint", lab_moves:"Moves:", lab_fog_info:"Expert: only nearby tiles are visible",
+  lab_win:"Amazing! The robot reached the exit! 🏁",
+  lab_back:"Back to Missions"
 },
 fr: {
   ms_title:"Qui joue aujourd'hui ?",
@@ -189,6 +195,7 @@ fr: {
   mis_master:"🏆 Badge Maître Mission ! +100 XP",
   mis_next_planet:"🌱 Suivant : Protecteur de la Planète →",
   mis_next_helper:"🤝 Suivant : Assistant Intelligent →",
+  mis_next_labyrinth:"🤖 Suivant : Navigateur Robot →",
   mis_next_training:"🦾 Suivant : Atelier d'entraînement →",
   tr_next_quiz:"🎯 Suivant : Passe le quiz ! →",
   mg_play:"🎮 Jouer au mini-jeu !",
@@ -294,7 +301,12 @@ fr: {
   adv_title:"Défi adversarial ! 🎯", adv_inst:"Quel changement tromperait cette IA ?",
   adv_correct:"Tu as trompé l'IA ! ✅", adv_wrong:"Pas tout à fait — l'IA n'a pas été trompée.",
   adv_done:"🎯 Maître adversarial !", adv_of:"sur",
-  m_adv_ttl:"Défi adversarial", m_adv_desc:"Peux-tu tromper une IA en lui faisant prendre une mauvaise décision ?"
+  m_adv_ttl:"Défi adversarial", m_adv_desc:"Peux-tu tromper une IA en lui faisant prendre une mauvaise décision ?",
+  m_lab_ttl:"Navigateur Robot", m_lab_desc:"Guide un robot dans un labyrinthe et découvre comment l'IA navigue dans le monde !",
+  lab_title:"Navigateur Robot 🤖", lab_inst:"Guide le robot 🤖 vers la sortie 🏁 !",
+  lab_hint_btn:"💡 Indice", lab_moves:"Déplacements :", lab_fog_info:"Expert : seules les cases proches sont visibles",
+  lab_win:"Incroyable ! Le robot a atteint la sortie ! 🏁",
+  lab_back:"Retour aux Missions"
 }};
 
 /* ── LEVELS ── */
@@ -314,6 +326,7 @@ const BADGES = [
   { id:'health-hero',    name:'Health Hero',    name_fr:'Héros Santé',       ico:'❤️',  bg:'#FCE4EC', bdr:'#E91E63' },
   { id:'planet-pro',     name:'Planet Pro',     name_fr:'Pro Planète',       ico:'🌍', bg:'#E8F5E9', bdr:'#4CAF50' },
   { id:'smart-helper',   name:'Smart Helper',   name_fr:'Aide Intelligent',  ico:'🤝', bg:'#FFF3E0', bdr:'#FF9800' },
+  { id:'nav-master',     name:'Nav Master',     name_fr:'Maître Navigateur', ico:'🤖', bg:'#EDE7F6', bdr:'#7E57C2' },
   { id:'mission-master', name:'Mission Master', name_fr:'Maître Mission',    ico:'🏆', bg:'#F3E5F5', bdr:'#9C27B0' },
   { id:'data-detective', name:'Data Detective', name_fr:'Détective Data',    ico:'🔍', bg:'#E0F7FA', bdr:'#00BCD4' },
   { id:'robot-trainer',  name:'Robot Trainer',  name_fr:'Entraîneur Robot',  ico:'🤖', bg:'#E8EAF6', bdr:'#3F51B5' },
@@ -495,6 +508,22 @@ const MISSIONS_DATA = {
       { ico:'🚗', h:'Mobilité intelligente',      t:"La technologie des voitures autonomes offre de l'indépendance aux personnes âgées et handicapées qui ne peuvent pas conduire !" }
     ],
     game: 'helper'
+  },
+  labyrinth: {
+    id:'labyrinth', badge:'nav-master',
+    grad:'linear-gradient(135deg,#1A237E,#7E57C2)',
+    title:'Robot Navigator', title_fr:'Navigateur Robot', ico:'🤖',
+    facts: [
+      { ico:'🚗', h:'Self-Driving Cars',    t:"AI in self-driving cars constantly analyses cameras and sensors to find a safe path through traffic — just like navigating a maze at high speed!" },
+      { ico:'🤖', h:'Delivery Robots',      t:"Warehouse robots use AI pathfinding to move around shelves and people, delivering packages without bumping into anything — all day, every day!" },
+      { ico:'🗺️', h:'AI Pathfinding',       t:"AI uses clever algorithms like A* to find the shortest path from A to B. It weighs every possible route and picks the best one in milliseconds!" }
+    ],
+    facts_fr: [
+      { ico:'🚗', h:'Voitures autonomes',   t:"L'IA dans les voitures autonomes analyse en permanence caméras et capteurs pour trouver un chemin sûr dans la circulation — comme naviguer dans un labyrinthe à grande vitesse !" },
+      { ico:'🤖', h:'Robots livreurs',      t:"Les robots d'entrepôt utilisent l'IA pour se déplacer entre rayons et personnes, livrant des colis sans jamais rien heurter — toute la journée !" },
+      { ico:'🗺️', h:'Pathfinding IA',       t:"L'IA utilise des algorithmes comme A* pour trouver le chemin le plus court de A à B. Elle évalue chaque route et choisit la meilleure en millisecondes !" }
+    ],
+    game: 'labyrinth'
   }
 };
 
@@ -814,6 +843,22 @@ const MISSIONS_DATA_JUNIOR = {
       { ico:'🎓', h:'Ami apprentissage',  t:"Les applis IA aident les enfants qui ont du mal à lire ou écrire en leur donnant de l'aide faite juste pour eux !" }
     ],
     game: 'helper'
+  },
+  labyrinth: {
+    id:'labyrinth', badge:'nav-master',
+    grad:'linear-gradient(135deg,#1A237E,#7E57C2)',
+    title:'Robot Navigator', title_fr:'Navigateur Robot', ico:'🤖',
+    facts: [
+      { ico:'🚗', h:'Robot Cars',        t:"AI helps cars drive by themselves! The car looks all around and figures out the best way to go — just like you in this maze!" },
+      { ico:'🤖', h:'Helper Robots',     t:"Robots in big warehouses move around shelves and find packages. They use AI so they never bump into things!" },
+      { ico:'🗺️', h:'Finding the Path',  t:"AI can figure out the best path through any maze in a split second. It tries lots of routes and picks the fastest one!" }
+    ],
+    facts_fr: [
+      { ico:'🚗', h:'Voitures robots',      t:"L'IA aide les voitures à conduire toutes seules ! La voiture regarde partout et trouve le meilleur chemin — comme toi dans ce labyrinthe !" },
+      { ico:'🤖', h:'Robots assistants',    t:"Des robots dans de grands entrepôts se déplacent entre les étagères et trouvent des colis. Ils utilisent l'IA pour ne jamais rien heurter !" },
+      { ico:'🗺️', h:'Trouver le chemin',   t:"L'IA peut trouver le meilleur chemin dans n'importe quel labyrinthe en un instant. Elle essaie plein de routes et choisit la plus rapide !" }
+    ],
+    game: 'labyrinth'
   }
 };
 
@@ -884,6 +929,22 @@ const MISSIONS_DATA_EXPERT = {
       { ico:'🤝', h:'Humain vs. IA',              t:"Les assistants IA ne se fatiguent jamais — mais une machine peut-elle vraiment remplacer l'empathie et le lien humain que donnent les soignants ?" }
     ],
     game: 'helper'
+  },
+  labyrinth: {
+    id:'labyrinth', badge:'nav-master',
+    grad:'linear-gradient(135deg,#1A237E,#7E57C2)',
+    title:'Robot Navigator', title_fr:'Navigateur Robot', ico:'🤖',
+    facts: [
+      { ico:'🚗', h:'Autonomous Navigation',  t:"Self-driving cars use real-time sensor fusion (LIDAR, cameras, radar) and AI path-planning algorithms to navigate complex environments safely at speed." },
+      { ico:'🧭', h:'A* Algorithm',            t:"A* is a best-first search algorithm that finds the optimal path using a heuristic. It balances explored distance and estimated remaining cost — the backbone of robot navigation." },
+      { ico:'⚠️', h:'The Limits of AI Nav',   t:"AI navigation systems can fail on edge cases: unusual road markings, sensor occlusion, or adversarial environments. Robustness is one of the hardest open problems in robotics." }
+    ],
+    facts_fr: [
+      { ico:'🚗', h:'Navigation autonome',   t:"Les voitures autonomes utilisent la fusion de capteurs en temps réel (LIDAR, caméras, radar) et des algorithmes de planification de trajectoire pour naviguer en sécurité." },
+      { ico:'🧭', h:'Algorithme A*',          t:"A* est un algorithme de recherche best-first qui trouve le chemin optimal via une heuristique. Il équilibre distance parcourue et coût restant estimé — la base de la navigation robotique." },
+      { ico:'⚠️', h:"Limites de l'IA nav.",  t:"Les systèmes de navigation IA peuvent échouer sur des cas limites : marquages routiers inhabituels, occlusion de capteurs. La robustesse reste l'un des problèmes ouverts les plus difficiles en robotique." }
+    ],
+    game: 'labyrinth'
   }
 };
 
@@ -1019,3 +1080,7 @@ const ADVERSARIAL_SCENARIOS = [
     expl:{ en:"Adversarial noise adds mathematically computed pixel changes, invisible to human eyes, that exploit the model's internal decision boundaries — flipping the classification.", fr:"Le bruit adversarial ajoute des changements de pixels calculés mathématiquement, invisibles à l'œil humain, qui exploitent les frontières de décision internes du modèle." }
   }
 ];
+
+/* ── LABYRINTH CONFIG — n = logical cell count per axis; grid = (2n+1)×(2n+1) ── */
+// Junior: n=2 → 5×5  |  Explorer: n=4 → 9×9  |  Expert: n=6 → 13×13
+const LABYRINTH_N_BY_MODE = { junior: 3, explorer: 5, expert: 7 };

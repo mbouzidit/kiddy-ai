@@ -76,23 +76,36 @@ function renderQ() {
   opts.innerHTML = '';
   if (q.type === 'tf') {
     opts.className = 'qz-opts g2';
-    const bt = _mkBtn('opt-btn opt-true', 'ob-true',  t('qz_true'),  () => checkAnswer('true',  q));
-    const bf = _mkBtn('opt-btn opt-fal',  'ob-false', t('qz_false'), () => checkAnswer('false', q));
+    const bt = _mkBtn('opt-btn opt-true', 'ob-true',  t('qz_true'),  () => checkAnswer('true',  q), 'True');
+    const bf = _mkBtn('opt-btn opt-fal',  'ob-false', t('qz_false'), () => checkAnswer('false', q), 'False');
     opts.appendChild(bt); opts.appendChild(bf);
   } else {
     const isG2 = q.type === 'mc4';
     opts.className = 'qz-opts' + (isG2 ? ' g2' : '');
     const o = (L === 'fr' && q.opts_fr) ? q.opts_fr : q.opts;
     o.forEach((opt, i) => {
-      const btn = _mkBtn(`opt-btn ${opt.cls}`, `ob-${i}`, opt.lbl, () => checkAnswer(i, q));
+      const btn = _mkBtn(`opt-btn ${opt.cls}`, `ob-${i}`, opt.lbl, () => checkAnswer(i, q), opt.lbl);
       opts.appendChild(btn);
     });
   }
 }
 
-function _mkBtn(cls, id, label, handler) {
+function readQuestion() {
+  const el = document.getElementById('qz-txt');
+  if (el) speakOnce(el.textContent);
+}
+
+function _mkBtn(cls, id, label, handler, speakText) {
   const b = document.createElement('button');
-  b.className = cls; b.id = id; b.textContent = label; b.onclick = handler;
+  b.className = cls; b.id = id;
+  b.onclick = function(e) { if (e.target.closest('.item-read-btn')) return; handler(e); };
+  b.appendChild(document.createTextNode(label));
+  const r = document.createElement('span');
+  r.className = 'item-read-btn';
+  r.textContent = '🔊';
+  r.setAttribute('aria-label', 'Read aloud');
+  r.addEventListener('click', function(e) { e.stopPropagation(); speakOnce(speakText || label); });
+  b.appendChild(r);
   return b;
 }
 

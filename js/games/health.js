@@ -26,12 +26,14 @@ function buildHealthGame(wrap, missionId, done) {
     <div class="match-prob" id="mp-${pi}" draggable="true">
       <span class="match-ico">${pairs[pi].prob.ico}</span>
       <div class="match-lbl">${pairs[pi].prob[L] || pairs[pi].prob.en}</div>
+      <span class="item-read-btn" aria-label="Read aloud">🔊</span>
     </div>`).join('');
 
   const zones = rightOrder.map((ri, vi) => `
     <div class="match-zone" id="mz-${vi}">
       <span class="match-ico">${pairs[ri].sol.ico}</span>
       <div class="match-lbl">${pairs[ri].sol[L] || pairs[ri].sol.en}</div>
+      <span class="item-read-btn" aria-label="Read aloud">🔊</span>
     </div>`).join('');
 
   wrap.innerHTML = `
@@ -50,6 +52,22 @@ function buildHealthGame(wrap, missionId, done) {
       ${completeBtnHtml}
     </div>`;
 
+  speak(t('hg_inst'));
+  // attach read buttons on solution zones
+  rightOrder.forEach((ri, vi) => {
+    const r = document.querySelector('#mz-' + vi + ' .item-read-btn');
+    if (!r) return;
+    const txt = pairs[ri].sol[L] || pairs[ri].sol.en;
+    r.addEventListener('click', function(e) { e.stopPropagation(); speakOnce(txt); });
+  });
+  // attach read buttons on problem cards (stop-propagation prevents drag from firing)
+  probOrder.forEach(pi => {
+    const r = document.querySelector('#mp-' + pi + ' .item-read-btn');
+    if (!r) return;
+    const txt = pairs[pi].prob[L] || pairs[pi].prob.en;
+    r.addEventListener('touchstart', function(e) { e.stopPropagation(); speakOnce(txt); }, { passive: true });
+    r.addEventListener('click',      function(e) { e.stopPropagation(); speakOnce(txt); });
+  });
   // bind mouse drag on problem cards
   probOrder.forEach(pi => {
     const el = document.getElementById('mp-' + pi);
@@ -158,6 +176,7 @@ function mgResolve(probPairIdx, zoneVisualIdx, zonePairIdx) {
         const btn = document.getElementById('mg-cmp-btn');
         if (btn) btn.style.display = 'block';
         confettiSmall();
+        speak(t('hg_done'));
       }, 400);
     }
   } else {
@@ -166,5 +185,6 @@ function mgResolve(probPairIdx, zoneVisualIdx, zonePairIdx) {
     probEl.classList.add('wrong');
     setTimeout(() => probEl.classList.remove('wrong'), 550);
     toast(t('hg_wrong'));
+    speak(t('hg_wrong'));
   }
 }

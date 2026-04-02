@@ -19,6 +19,7 @@ function buildPlanetGame(wrap, missionId, done) {
       <div class="sort-zone-head">
         <span class="sort-cat-ico">${c.ico}</span>
         <span class="sort-cat-lbl" style="color:${c.color}">${c[L] || c.en}</span>
+        <span class="sort-read-btn" aria-label="Read aloud">🔊</span>
         <span class="sort-cat-count" id="sc-cnt-${i}" style="background:${c.color}">0</span>
       </div>
       <div class="sort-zone-chips" id="sz-chips-${i}"></div>
@@ -26,7 +27,7 @@ function buildPlanetGame(wrap, missionId, done) {
 
   const itemsHtml = items.map((it, i) => `
     <div class="sort-item" id="si-${i}" draggable="true">
-      ${it.ico} ${it[L] || it.en}
+      ${it.ico} ${it[L] || it.en}<span class="sort-read-btn" aria-label="Read aloud">🔊</span>
     </div>`).join('');
 
   const completeBtnHtml = done
@@ -50,6 +51,22 @@ function buildPlanetGame(wrap, missionId, done) {
       ${completeBtnHtml}
     </div>`;
 
+  speak(t('pg_inst'));
+  // attach read buttons on zone headers
+  cats.forEach((c, i) => {
+    const r = document.querySelector('#sz-' + i + ' .sort-read-btn');
+    if (!r) return;
+    const txt = c[L] || c.en;
+    r.addEventListener('click', function(e) { e.stopPropagation(); speakOnce(txt); });
+  });
+  // attach read buttons on sort items
+  items.forEach((it, i) => {
+    const r = document.querySelector('#si-' + i + ' .sort-read-btn');
+    if (!r) return;
+    const txt = it[L] || it.en;
+    r.addEventListener('touchstart', function(e) { e.stopPropagation(); speakOnce(txt); }, { passive: true });
+    r.addEventListener('click',      function(e) { e.stopPropagation(); speakOnce(txt); });
+  });
   // bind mouse drag on items
   items.forEach((_, i) => {
     const el = document.getElementById('si-' + i);
@@ -168,6 +185,7 @@ function sortResolve(itemIdx, catIdx) {
         const btn = document.getElementById('sort-cmp-btn');
         if (btn) btn.style.display = 'block';
         confettiSmall();
+        speak(t('pg_done'));
       }, 400);
     }
   } else {
