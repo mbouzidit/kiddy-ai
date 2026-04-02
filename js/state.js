@@ -7,8 +7,8 @@ const STORAGE_KEY = 'ailab_v4';
 let S = {
   name: '', ava: '🧑', xp: 0, lang: 'en',
   badges: [], missions: [],
-  quizBest: -1, trDone: false, trCount: 0,
-  qScore: 0, qCurrent: 0, qAnswered: false,
+  quizBest: -1, quizPlays: 0, trDone: false, trCount: 0,
+  qScore: 0, qCurrent: 0, qAnswered: false, qQuestions: [],
   hintUsed: false, muted: false
 };
 

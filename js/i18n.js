@@ -23,8 +23,16 @@ function applyLang() {
   const L = T[S.lang] || T.en;
 
   // Toggle buttons
-  document.getElementById('lang-en').classList.toggle('active', S.lang === 'en');
-  document.getElementById('lang-fr').classList.toggle('active', S.lang === 'fr');
+  const enBtn = document.getElementById('lang-en');
+  const frBtn = document.getElementById('lang-fr');
+  enBtn.classList.toggle('active', S.lang === 'en');
+  frBtn.classList.toggle('active', S.lang === 'fr');
+  enBtn.setAttribute('aria-pressed', S.lang === 'en' ? 'true' : 'false');
+  frBtn.setAttribute('aria-pressed', S.lang === 'fr' ? 'true' : 'false');
+  enBtn.setAttribute('aria-label', L.a11y_lang_en);
+  frBtn.setAttribute('aria-label', L.a11y_lang_fr);
+  const muteBtn = document.getElementById('mute-btn');
+  if (muteBtn) muteBtn.setAttribute('aria-label', S.muted ? L.a11y_mute_off : L.a11y_mute_on);
 
   // Splash (title uses innerHTML for line break)
   const spTitleEl = document.getElementById('sp-title');

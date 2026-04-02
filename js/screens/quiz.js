@@ -10,6 +10,13 @@ function loadQuizIntro() {
 }
 
 function startQuiz() {
+  const pool    = QUESTIONS.slice();
+  const sampled = [];
+  while (sampled.length < 5 && pool.length > 0) {
+    const idx = Math.floor(Math.random() * pool.length);
+    sampled.push(pool.splice(idx, 1)[0]);
+  }
+  S.qQuestions = sampled;
   S.qScore = 0; S.qCurrent = 0; S.qAnswered = false; S.hintUsed = false;
   save(); nav('quiz');
 }
@@ -30,16 +37,17 @@ function initQuizClouds() {
 /* ── RENDER QUESTION ── */
 function renderQ() {
   initQuizClouds();
-  if (S.qCurrent >= QUESTIONS.length) { finishQuiz(); return; }
+  const qs = S.qQuestions;
+  if (S.qCurrent >= qs.length) { finishQuiz(); return; }
 
-  const q = QUESTIONS[S.qCurrent];
+  const q = qs[S.qCurrent];
   const L = S.lang;
   const qText = (L === 'fr' && q.text_fr) ? q.text_fr : q.text;
 
   // Stars progress
   const stars = document.getElementById('qz-stars');
   stars.innerHTML = '';
-  for (let i = 0; i < QUESTIONS.length; i++) {
+  for (let i = 0; i < qs.length; i++) {
     const s = document.createElement('span');
     s.className  = 'qz-star' + (i < S.qScore ? ' earned' : '');
     s.textContent = i < S.qScore ? '⭐' : '☆';
@@ -47,7 +55,7 @@ function renderQ() {
   }
 
   // Header
-  document.getElementById('qz-ctr').textContent  = `${t('qz_question')} ${S.qCurrent + 1} ${t('qz_q_of')} ${QUESTIONS.length}`;
+  document.getElementById('qz-ctr').textContent  = `${t('qz_question')} ${S.qCurrent + 1} ${t('qz_q_of')} ${qs.length}`;
   document.getElementById('qz-char').textContent  = q.char;
   document.getElementById('qz-txt').textContent   = qText;
 
@@ -91,7 +99,7 @@ function _mkBtn(cls, id, label, handler) {
 function useHint() {
   if (S.hintUsed) return;
   S.hintUsed = true;
-  const q    = QUESTIONS[S.qCurrent];
+  const q    = S.qQuestions[S.qCurrent];
   const L    = S.lang;
   const hint = (L === 'fr' && q.hint_fr) ? q.hint_fr : q.hint;
   const hbox = document.getElementById('qz-hint-box');
@@ -157,7 +165,7 @@ function setFeedback(ico, cls, title, expl) {
 
 function nextQ() {
   S.qCurrent++;
-  if (S.qCurrent >= QUESTIONS.length) finishQuiz(); else renderQ();
+  if (S.qCurrent >= S.qQuestions.length) finishQuiz(); else renderQ();
 }
 
 /* ── FINISH ── */
@@ -165,6 +173,8 @@ function finishQuiz() {
   if (S.quizBest < S.qScore) S.quizBest = S.qScore;
   earn('quiz-starter'); addXP(100);
   if (S.qScore === 5) { earn('ai-genius'); addXP(200); }
+  if (S.quizPlays >= 1 && S.quizPlays <= 3) { addXP(25); toast(t('res_replay_xp')); }
+  S.quizPlays++;
   save(); nav('quiz-results'); playSound('complete'); confetti();
 }
 
@@ -177,6 +187,7 @@ function loadResults() {
   if (sc === 5) titleEl.innerHTML    = L.res_genius;
   else          titleEl.textContent  = L.res_titles[sc] || L.res_titles[3];
   document.getElementById('res-stars').textContent = '⭐'.repeat(sc) + '☆'.repeat(5 - sc);
-  const xpE = sc * 50 + 100 + (sc === 5 ? 200 : 0);
+  const replayBonus = (S.quizPlays > 1 && S.quizPlays <= 4) ? 25 : 0;
+  const xpE = sc * 50 + 100 + (sc === 5 ? 200 : 0) + replayBonus;
   document.getElementById('res-xp').textContent = `+${xpE} ${t('res_xp_sfx')}`;
 }

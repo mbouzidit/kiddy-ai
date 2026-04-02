@@ -73,11 +73,12 @@ en: {
   tr_done_title:"Training Complete!",
   tr_done_desc:"Your robot has learned from your data — amazing work!",
   tr_toast:"🎉 Training Complete! +150 XP",
-  tr_badge:"🤖 Robot Trainer Badge earned!",
   tr_test_title:"Test Your Robot! 🧪",
   tr_test_sub:"Tap each item to see if your robot recognises it!",
   tr_known:"I know this! 🎉",
   tr_unknown:"Still learning...",
+  tr_test_done:"✅ Test done! Robot knows {n}/{t} items!",
+  tr_test_done_toast:"🧪 Test complete! {n}/{t} recognised!",
   qi_lbl:"AI Quiz",
   qi_title:"AI Super-Power Quiz!",
   qi_sub:"Test your knowledge about Artificial Intelligence with 5 fun questions!",
@@ -101,6 +102,7 @@ en: {
   res_play:"🔄 Play Again",
   res_badges:"🏅 Go to My Badges",
   res_xp_sfx:"XP Earned! 🎉",
+  res_replay_xp:"🔄 Replay Bonus! +25 XP",
   res_titles:["Keep practicing!","Good start!","Getting better!","Well done!","Almost perfect!","You're an AI Genius!"],
   res_genius:"You're an <span class='ai-text'>AI</span> Genius! 🧠",
   bdg_title:"MY SUPER BADGES",
@@ -119,7 +121,14 @@ en: {
   reset_cancel:"Cancel",
   reset_yes:"Yes, reset everything",
   welcome:"Welcome, {n}! 🎉 +50 XP",
-  badge_prefix:"🏅 Badge earned:"
+  badge_prefix:"🏅 Badge earned:",
+  a11y_back:"Go back",
+  a11y_lang_en:"Switch to English",
+  a11y_lang_fr:"Switch to French",
+  a11y_mute_on:"Mute sound",
+  a11y_mute_off:"Unmute sound",
+  a11y_drag_item:"Drag item: {n}",
+  a11y_drop_zone:"Robot brain drop zone"
 },
 fr: {
   sp_title:"AI LAB<br>POUR LES ENFANTS !",
@@ -190,11 +199,12 @@ fr: {
   tr_done_title:"Entraînement terminé !",
   tr_done_desc:"Ton robot a appris de tes données — travail incroyable !",
   tr_toast:"🎉 Entraînement terminé ! +150 XP",
-  tr_badge:"🤖 Badge Entraîneur Robot gagné !",
   tr_test_title:"Teste ton robot ! 🧪",
   tr_test_sub:"Appuie sur chaque élément pour voir si ton robot le reconnaît !",
   tr_known:"Je connais ! 🎉",
   tr_unknown:"J'apprends encore...",
+  tr_test_done:"✅ Test terminé ! Le robot connaît {n}/{t} éléments !",
+  tr_test_done_toast:"🧪 Test complet ! {n}/{t} reconnus !",
   qi_lbl:"Quiz IA",
   qi_title:"Quiz Super-Pouvoirs IA !",
   qi_sub:"Teste tes connaissances sur l'Intelligence Artificielle avec 5 questions amusantes !",
@@ -218,6 +228,7 @@ fr: {
   res_play:"🔄 Rejouer",
   res_badges:"🏅 Mes badges",
   res_xp_sfx:"XP gagnés ! 🎉",
+  res_replay_xp:"🔄 Bonus rejeu ! +25 XP",
   res_titles:["Continue à pratiquer !","Bon début !","Tu progresses !","Bien joué !","Presque parfait !","Tu es un Génie IA !"],
   res_genius:"Tu es un <span class='ai-text'>Génie</span> IA ! 🧠",
   bdg_title:"MES SUPER BADGES",
@@ -236,7 +247,14 @@ fr: {
   reset_cancel:"Annuler",
   reset_yes:"Oui, tout réinitialiser",
   welcome:"Bienvenue, {n} ! 🎉 +50 XP",
-  badge_prefix:"🏅 Badge gagné :"
+  badge_prefix:"🏅 Badge gagné :",
+  a11y_back:"Retour",
+  a11y_lang_en:"Passer en anglais",
+  a11y_lang_fr:"Passer en français",
+  a11y_mute_on:"Couper le son",
+  a11y_mute_off:"Activer le son",
+  a11y_drag_item:"Élément à glisser : {n}",
+  a11y_drop_zone:"Zone de dépôt du cerveau robot"
 }};
 
 /* ── LEVELS ── */
@@ -245,8 +263,8 @@ const LEVELS = [
   { name:'AI Explorer',      name_fr:'Explorateur IA',      min:200  },
   { name:'Data Detective',   name_fr:'Détective Data',      min:500  },
   { name:'Robot Trainer',    name_fr:'Entraîneur Robot',    min:800  },
-  { name:'AI Master',        name_fr:'Maître IA',           min:1200 },
-  { name:'AI Genius! 🌟',   name_fr:'Génie IA ! 🌟',      min:1600 }
+  { name:'AI Master',        name_fr:'Maître IA',           min:950  },
+  { name:'AI Genius! 🌟',   name_fr:'Génie IA ! 🌟',      min:1300 }
 ];
 
 /* ── BADGES ── */
@@ -323,6 +341,62 @@ const QUESTIONS = [
     expl_fr: "L'IA apprend en regardant des millions d'exemples ! Plus elle voit de photos de chats, plus elle devient douée. C'est la pratique qui fait le maître !",
     hint:    "Think about how you learned to recognise things as a baby — by seeing them many, many times!",
     hint_fr: "Pense à comment tu as appris à reconnaître les choses quand tu étais petit — en les voyant des milliers de fois !"
+  },
+  {
+    type:'tf', char:'🎨',
+    text:    "AI can create music, paintings, and stories all by itself.",
+    text_fr: "L'IA peut créer de la musique, des peintures et des histoires toute seule.",
+    correct: 'true',
+    expl:    "Yes! Generative AI tools can produce songs, artwork, and creative writing from a simple text description. The future is creative!",
+    expl_fr: "Oui ! Les outils IA génératifs peuvent produire des chansons, des œuvres d'art et de l'écriture créative à partir d'une simple description. L'avenir est créatif !",
+    hint:    "Think about apps like DALL·E that make images — or AI music generators that compose songs!",
+    hint_fr: "Pense aux applis comme DALL·E qui créent des images — ou aux générateurs de musique IA qui composent des chansons !"
+  },
+  {
+    type:'mc3', char:'🤖',
+    text:    "What is machine learning?",
+    text_fr: "Qu'est-ce que l'apprentissage automatique ?",
+    opts:    [{ lbl:'📺 Fixing broken machines',            cls:'opt-red' }, { lbl:'🤖 Teaching computers to learn from data', cls:'opt-grn' }, { lbl:'🎓 Running a school for robots', cls:'opt-blu' }],
+    opts_fr: [{ lbl:'📺 Réparer des machines cassées',       cls:'opt-red' }, { lbl:'🤖 Apprendre aux ordinateurs à partir de données', cls:'opt-grn' }, { lbl:'🎓 Gérer une école pour robots', cls:'opt-blu' }],
+    correct: 1,
+    expl:    "Machine learning means giving computers examples so they can figure out the rules themselves — instead of programming every rule by hand!",
+    expl_fr: "L'apprentissage automatique consiste à donner des exemples aux ordinateurs pour qu'ils trouvent les règles eux-mêmes — sans les programmer une par une !",
+    hint:    "The word 'learning' is the clue — it's about computers improving on their own from experience.",
+    hint_fr: "Le mot 'apprentissage' est l'indice — il s'agit d'ordinateurs qui s'améliorent seuls grâce à l'expérience."
+  },
+  {
+    type:'tf', char:'⚠️',
+    text:    "AI always makes perfect decisions and never makes mistakes.",
+    text_fr: "L'IA prend toujours des décisions parfaites et ne fait jamais d'erreurs.",
+    correct: 'false',
+    expl:    "False! AI can be wrong, biased, or confused — especially if its training data was poor or incomplete. That's why humans must stay in charge!",
+    expl_fr: "Faux ! L'IA peut se tromper, être biaisée ou confuse — surtout si ses données d'entraînement étaient mauvaises. C'est pourquoi les humains doivent rester aux commandes !",
+    hint:    "Think about spam filters — do they ever let a real email through to your junk folder by mistake?",
+    hint_fr: "Pense aux filtres anti-spam — est-ce qu'un vrai email finit parfois dans les spams par erreur ?"
+  },
+  {
+    type:'mc4', char:'📱',
+    text:    "Which AI skill lets your phone understand your spoken words?",
+    text_fr: "Quelle compétence IA permet à ton téléphone de comprendre tes mots prononcés ?",
+    opts:    [{ lbl:'👁️ Computer Vision', cls:'opt-yel' }, { lbl:'🗣️ Speech Recognition', cls:'opt-grn' }, { lbl:'🌍 Translation AI', cls:'opt-pur' }, { lbl:'🧠 Reinforcement Learning', cls:'opt-red' }],
+    opts_fr: [{ lbl:'👁️ Vision par ordinateur', cls:'opt-yel' }, { lbl:'🗣️ Reconnaissance vocale', cls:'opt-grn' }, { lbl:'🌍 Traduction IA', cls:'opt-pur' }, { lbl:'🧠 Apprentissage par renforcement', cls:'opt-red' }],
+    correct: 1,
+    expl:    "Speech Recognition! AI listens to the sound waves of your voice and converts them into words — that's how Siri, Alexa, and Google Assistant work!",
+    expl_fr: "La reconnaissance vocale ! L'IA écoute les ondes sonores de ta voix et les convertit en mots — c'est ainsi que fonctionnent Siri, Alexa et Google Assistant !",
+    hint:    "The answer literally describes what it does — it 'recognises' something you do with your mouth!",
+    hint_fr: "La réponse décrit littéralement ce qu'elle fait — elle 'reconnaît' quelque chose que tu fais avec ta bouche !"
+  },
+  {
+    type:'mc3', char:'🎵',
+    text:    "How does a music app know which songs you will enjoy?",
+    text_fr: "Comment une appli de musique sait-elle quelles chansons tu vas apprécier ?",
+    opts:    [{ lbl:'🎲 Random selection',                cls:'opt-red' }, { lbl:'📊 AI analyses your listening history', cls:'opt-grn' }, { lbl:'📞 It asks your friends',           cls:'opt-blu' }],
+    opts_fr: [{ lbl:'🎲 Sélection aléatoire',              cls:'opt-red' }, { lbl:'📊 L\'IA analyse ton historique d\'écoute', cls:'opt-grn' }, { lbl:'📞 Elle demande à tes amis',        cls:'opt-blu' }],
+    correct: 1,
+    expl:    "Recommendation AI! It looks at every song you've played, skipped, or liked to predict what you'll enjoy next. That's why playlists feel made just for you!",
+    expl_fr: "L'IA de recommandation ! Elle analyse chaque chanson que tu as écoutée, passée ou aimée pour prédire ce qui te plaira. C'est pourquoi les playlists semblent faites pour toi !",
+    hint:    "The app already knows everything you've been listening to — what would it do with that information?",
+    hint_fr: "L'appli connaît déjà tout ce que tu as écouté — que ferait-elle avec cette information ?"
   }
 ];
 

@@ -6,17 +6,18 @@ A gamified, single-page web app that teaches children about Artificial Intellige
 
 ## Features
 
-- **3 Mission Activities** — themed mini-games that each unlock a badge and +75 XP
-- **Robot Training Workshop** — drag-and-drop data into a robot brain, then test what it learned
-- **AI Quiz** — 5 questions with hints, per-answer feedback, and a results celebration
+- **3 Mission Activities** — themed mini-games that each unlock a badge and +75 XP; replaying awards +25 XP (once per session)
+- **Robot Training Workshop** — drag-and-drop data into a robot brain, train to 100%, then test what it learned (with completion summary)
+- **AI Quiz** — 10-question pool, 5 sampled randomly per run; hints, per-answer feedback, results celebration; +25 XP replay bonus for runs 2–4
 - **10 Badges** — earned by completing activities and hitting milestones
-- **6 Progression Levels** — from Junior Scientist up to AI Genius, driven by XP
+- **6 Progression Levels** — from Junior Scientist up to AI Genius (max: 1,075 XP with perfect play reaches Level 5 "AI Master")
 - **Bilingual** — full English / French support with a flag toggle
 - **Persistent progress** — state saved to `localStorage`, survives page refresh
 - **"Next Activity" flow** — after each completion a button guides to the next activity (Health → Planet → Helper → Training → Quiz → Badges)
 - **Sound effects** — synthesised audio feedback via Web Audio API (no audio files): button clicks, correct/wrong answers, completions, badge earned, level-up
 - **Mute toggle** — 🔊/🔇 button in the top bar, preference saved to localStorage
 - **Reset progress** — wipe all progress and start fresh from the dashboard; language and sound preferences are preserved
+- **Accessibility** — ARIA labels on all interactive elements, `aria-live` toast notifications, keyboard navigation in bottom nav and Training Workshop drag-and-drop
 
 ---
 
@@ -83,8 +84,10 @@ Splash → Profile → Dashboard
 | Smart Helper | Pick the best AI tool for 3 scenarios | +75 | smart-helper |
 | All 3 missions | Bonus for completing all missions | +100 | mission-master |
 | Training Workshop | Drag 8 items into the robot brain, then train to 100% | +150 | robot-trainer, data-detective |
-| Quiz (any score) | 5 questions, +50 XP per correct answer | +100 base | quiz-starter |
+| Quiz (any score) | 5 of 10 questions sampled randomly, +50 XP per correct answer | +100 base | quiz-starter |
 | Quiz perfect score | Score 5/5 | +200 bonus | ai-genius |
+| Quiz replays (runs 2–4) | +25 XP per replay regardless of score | +25 | — |
+| Mission replays | Replay a completed mission mini-game (once per session) | +25 | — |
 
 ---
 
@@ -102,12 +105,14 @@ S = {
   missions: [],    // Completed mission IDs: ['health', 'planet', 'helper']
   trDone: false,   // Training completed
   trCount: 0,      // Items dragged (0–8)
-  quizBest: -1,    // Best quiz score (–1 = never played)
-  qScore: 0,       // Current quiz session score
-  qCurrent: 0,     // Current question index
+  quizBest: -1,      // Best quiz score (–1 = never played)
+  quizPlays: 0,      // Total completed quiz runs (used for replay XP cap)
+  qScore: 0,         // Current quiz session score
+  qCurrent: 0,       // Current question index
+  qQuestions: [],    // Sampled 5-question subset for current quiz run
   qAnswered: false,
   hintUsed: false,
-  muted: false      // Sound muted preference
+  muted: false        // Sound muted preference
 }
 ```
 

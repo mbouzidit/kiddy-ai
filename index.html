@@ -12,14 +12,14 @@
 <body>
 
 <canvas id="confetti-canvas"></canvas>
-<div id="toast" class="toast"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <!-- LANG TOGGLE -->
 <div id="lang-toggle">
-  <button id="mute-btn" class="lang-btn" onclick="toggleMute()">🔊</button>
+  <button id="mute-btn" class="lang-btn" onclick="toggleMute()" aria-label="Mute sound" aria-pressed="false">🔊</button>
   <div class="lang-sep"></div>
-  <button id="lang-en" class="lang-btn active" onclick="setLang('en')">🇬🇧</button>
-  <button id="lang-fr" class="lang-btn"        onclick="setLang('fr')">🇫🇷</button>
+  <button id="lang-en" class="lang-btn active" onclick="setLang('en')" aria-label="Switch to English" aria-pressed="true">🇬🇧</button>
+  <button id="lang-fr" class="lang-btn"        onclick="setLang('fr')" aria-label="Switch to French"  aria-pressed="false">🇫🇷</button>
 </div>
 
 <!-- ══════════════════════════════════════
@@ -122,7 +122,7 @@
 <div id="screen-missions" class="screen">
   <div class="mis-header">
     <div class="mis-head-row">
-      <button class="back-btn" onclick="nav('dashboard')">←</button>
+      <button class="back-btn" onclick="nav('dashboard')" aria-label="Go back">←</button>
     </div>
     <div class="mis-h-title" id="m-title">🌟 How AI Helps Us</div>
     <div class="mis-h-sub"   id="m-sub">Discover the amazing ways AI makes the world better!</div>
@@ -166,7 +166,7 @@
 <div id="screen-training" class="screen">
   <div class="tr-header">
     <div class="tr-head-row">
-      <button class="back-btn" onclick="nav('dashboard')">←</button>
+      <button class="back-btn" onclick="nav('dashboard')" aria-label="Go back">←</button>
     </div>
     <div class="tr-h-title" id="tr-title">🤖 Robot Academy</div>
     <div class="tr-h-sub"   id="tr-sub">TRAINING BOX: TEACH YOUR ROBOT!</div>
@@ -186,8 +186,11 @@
     <!-- Robot panel -->
     <div class="robot-panel">
       <div class="panel-ttl" id="tr-rp-ttl">🧠 ROBOT BRAIN</div>
-      <div class="drop-zone" id="drop-zone"
-           ondragover="doDragOver(event)" ondrop="doDrop(event)" ondragleave="doDragLeave(event)">
+      <div class="drop-zone" id="drop-zone" role="region" aria-label="Robot brain drop zone"
+           tabindex="0"
+           ondragover="doDragOver(event)" ondrop="doDrop(event)" ondragleave="doDragLeave(event)"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();kbDropToZone()}"
+           onclick="kbDropToZone()">
         <div class="drop-lbl" id="drop-lbl">Drop items here to train!</div>
         <div class="dropped-disp" id="dropped-disp"></div>
       </div>
@@ -228,7 +231,7 @@
 ══════════════════════════════════════ -->
 <div id="screen-quiz-intro" class="screen">
   <div style="align-self:flex-start;display:flex;align-items:center;gap:10px;margin-bottom:10px">
-    <button class="back-btn dark" onclick="nav('dashboard')">←</button>
+    <button class="back-btn dark" onclick="nav('dashboard')" aria-label="Go back">←</button>
     <span id="qi-lbl" style="font-size:18px;font-weight:900;color:#1e2d3d">AI Quiz</span>
   </div>
   <div class="qi-ico">🧠</div>
@@ -299,7 +302,7 @@
 <div id="screen-badges" class="screen">
   <div class="bdg-header">
     <div class="bdg-head-row">
-      <button class="back-btn" onclick="nav('dashboard')">←</button>
+      <button class="back-btn" onclick="nav('dashboard')" aria-label="Go back">←</button>
     </div>
     <div class="bdg-h-title" id="bdg-title">MY SUPER BADGES</div>
     <div class="bdg-lvl-row">
@@ -320,13 +323,13 @@
 <!-- ══════════════════════════════════════
      BOTTOM NAV
 ══════════════════════════════════════ -->
-<div id="bottom-nav">
-  <div class="nav-item" id="n-home"     onclick="nav('dashboard')"> <span class="n-icon">🏠</span><span class="n-lbl" id="n-home-lbl">Home</span></div>
-  <div class="nav-item" id="n-missions" onclick="nav('missions')">  <span class="n-icon">🌍</span><span class="n-lbl" id="n-mis-lbl">Missions</span></div>
-  <div class="nav-item" id="n-training" onclick="nav('training')">  <span class="n-icon">🦾</span><span class="n-lbl" id="n-lab-lbl">Lab</span></div>
-  <div class="nav-item" id="n-quiz"     onclick="nav('quiz-intro')"><span class="n-icon">🎯</span><span class="n-lbl" id="n-quiz-lbl">Quiz</span></div>
-  <div class="nav-item" id="n-badges"   onclick="nav('badges')">    <span class="n-icon">🏆</span><span class="n-lbl" id="n-bdg-lbl">Badges</span></div>
-</div>
+<nav id="bottom-nav" aria-label="Main navigation">
+  <div class="nav-item" id="n-home"     role="button" tabindex="0" onclick="nav('dashboard')" onkeydown="if(event.key==='Enter'||event.key===' ')nav('dashboard')"> <span class="n-icon">🏠</span><span class="n-lbl" id="n-home-lbl">Home</span></div>
+  <div class="nav-item" id="n-missions" role="button" tabindex="0" onclick="nav('missions')"  onkeydown="if(event.key==='Enter'||event.key===' ')nav('missions')">  <span class="n-icon">🌍</span><span class="n-lbl" id="n-mis-lbl">Missions</span></div>
+  <div class="nav-item" id="n-training" role="button" tabindex="0" onclick="nav('training')"  onkeydown="if(event.key==='Enter'||event.key===' ')nav('training')">  <span class="n-icon">🦾</span><span class="n-lbl" id="n-lab-lbl">Lab</span></div>
+  <div class="nav-item" id="n-quiz"     role="button" tabindex="0" onclick="nav('quiz-intro')"onkeydown="if(event.key==='Enter'||event.key===' ')nav('quiz-intro')"><span class="n-icon">🎯</span><span class="n-lbl" id="n-quiz-lbl">Quiz</span></div>
+  <div class="nav-item" id="n-badges"   role="button" tabindex="0" onclick="nav('badges')"    onkeydown="if(event.key==='Enter'||event.key===' ')nav('badges')">    <span class="n-icon">🏆</span><span class="n-lbl" id="n-bdg-lbl">Badges</span></div>
+</nav>
 
 <!-- ══════════════════════════════════════
      SCRIPTS (dependency order)

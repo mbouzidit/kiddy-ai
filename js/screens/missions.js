@@ -15,6 +15,7 @@ function loadMissions() {
 }
 
 let _curMission = null;
+const _replayedThisSession = new Set();
 
 function showMission(id, skipNav = false) {
   _curMission = id;
@@ -58,7 +59,13 @@ function launchMissionGame(id) {
 }
 
 function completeMission(id) {
-  if (S.missions.includes(id)) return;
+  if (S.missions.includes(id)) {
+    if (!_replayedThisSession.has(id)) {
+      _replayedThisSession.add(id);
+      addXP(25); toast(t('res_replay_xp'));
+    }
+    return;
+  }
   S.missions.push(id);
   addXP(75);
   earn(MISSIONS_DATA[id].badge);

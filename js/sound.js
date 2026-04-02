@@ -27,7 +27,11 @@ function toggleMute() {
 
 function _applyMuteBtn() {
   const btn = document.getElementById('mute-btn');
-  if (btn) btn.textContent = S.muted ? '🔇' : '🔊';
+  if (!btn) return;
+  btn.textContent = S.muted ? '🔇' : '🔊';
+  btn.setAttribute('aria-pressed', S.muted ? 'true' : 'false');
+  const L = T[S.lang] || T.en;
+  btn.setAttribute('aria-label', S.muted ? L.a11y_mute_off : L.a11y_mute_on);
 }
 
 /* ── tone helper ── */

@@ -20,6 +20,10 @@ This folder contains feature specifications for AI Lab for Kids. Write or update
 | [spec-12-sound-effects.md](spec-12-sound-effects.md) | Sound effects — button clicks, correct/wrong, completions, badges |
 | [spec-13-reset.md](spec-13-reset.md) | Reset / New User — wipe progress and start fresh |
 | [spec-14-drag-drop-games.md](spec-14-drag-drop-games.md) | Drag-and-drop for Health Hero & Planet Protector mini-games |
+| [spec-15-quiz-more-questions.md](spec-15-quiz-more-questions.md) | Expanded 10-question pool with random 5-per-run sampling |
+| [spec-16-quiz-replay-xp.md](spec-16-quiz-replay-xp.md) | +25 XP replay bonus for quiz runs 2–4 |
+| [spec-17-mission-replay-xp.md](spec-17-mission-replay-xp.md) | +25 XP session replay bonus for completed mission mini-games |
+| [spec-18-accessibility.md](spec-18-accessibility.md) | ARIA labels, live regions, keyboard drag-and-drop (Training) |
 
 ## Spec Format
 

@@ -65,8 +65,8 @@ function doReset() {
   const lang  = S.lang;
   const muted = S.muted;
   S = { name:'', ava:'🧑', xp:0, lang, badges:[], missions:[],
-        quizBest:-1, trDone:false, trCount:0,
-        qScore:0, qCurrent:0, qAnswered:false, hintUsed:false, muted };
+        quizBest:-1, quizPlays:0, trDone:false, trCount:0,
+        qScore:0, qCurrent:0, qAnswered:false, qQuestions:[], hintUsed:false, muted };
   save();
   nav('splash');
 }

@@ -193,7 +193,8 @@
 .drag-item    { width:46px; height:46px; border-radius:11px; background:white; display:flex; align-items:center; justify-content:center; font-size:24px; cursor:grab; border:none; box-shadow:0 3px 8px rgba(0,0,0,.18); transition:all .2s; margin:0 auto; }
 .drag-item:hover  { transform:scale(1.18); box-shadow:0 6px 16px rgba(0,0,0,.28); }
 .drag-item:active { cursor:grabbing; transform:scale(.95); }
-.drag-item.used   { opacity:.25; cursor:not-allowed; pointer-events:none; }
+.drag-item.used          { opacity:.25; cursor:not-allowed; pointer-events:none; }
+.drag-item.keyboard-picked { outline:3px solid #FFD700; box-shadow:0 0 0 5px rgba(255,215,0,.4); transform:scale(1.18); }
 .items-ctr    { text-align:center; color:white; font-size:13px; font-weight:900; }
 .robot-panel  { background:linear-gradient(135deg,#1B5E20,#4CAF50); border-radius:var(--r); padding:18px; display:flex; flex-direction:column; gap:12px; }
 .drop-zone    { min-height:100px; background:rgba(255,255,255,.18); border:3px dashed rgba(255,255,255,.55); border-radius:var(--r-sm); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:10px; transition:all .25s; }

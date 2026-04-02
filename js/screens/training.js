@@ -2,7 +2,7 @@
    TRAINING — drag & drop + train + test
 ════════════════════════════════════════ */
 
-let trDragEl = null, touchEl = null, touchGhost = null;
+let trDragEl = null, touchEl = null, touchGhost = null, _kbPickedEl = null;
 
 /* ── LOAD ── */
 function loadTraining() {
@@ -27,11 +27,31 @@ function buildDragItems() {
     d.textContent = e;
     d.draggable = !used;
     if (!used) {
+      d.tabIndex = 0;
+      d.setAttribute('role', 'button');
+      d.setAttribute('aria-label', t('a11y_drag_item').replace('{n}', e));
       d.ondragstart = ev => { trDragEl = e; ev.dataTransfer.setData('text', e); d.style.opacity = '.4'; };
       d.ondragend   = ()  => { d.style.opacity = ''; };
       d.addEventListener('touchstart', touchStart, { passive: false });
       d.addEventListener('touchmove',  touchMove,  { passive: false });
       d.addEventListener('touchend',   touchEnd);
+      d.addEventListener('keydown', ev => {
+        if (ev.key === 'Escape') { _kbCancelPick(); return; }
+        if (ev.key !== 'Enter' && ev.key !== ' ') return;
+        ev.preventDefault();
+        if (!_kbPickedEl) {
+          _kbPickedEl = d;
+          d.classList.add('keyboard-picked');
+          d.setAttribute('aria-pressed', 'true');
+        } else if (_kbPickedEl === d) {
+          _kbCancelPick();
+        } else {
+          _kbCancelPick();
+          _kbPickedEl = d;
+          d.classList.add('keyboard-picked');
+          d.setAttribute('aria-pressed', 'true');
+        }
+      });
     }
     g.appendChild(d);
   });
@@ -76,6 +96,20 @@ function doDrop(e) {
   e.preventDefault();
   document.getElementById('drop-zone').classList.remove('over');
   dropItem(e.dataTransfer.getData('text'));
+}
+
+function _kbCancelPick() {
+  if (!_kbPickedEl) return;
+  _kbPickedEl.classList.remove('keyboard-picked');
+  _kbPickedEl.setAttribute('aria-pressed', 'false');
+  _kbPickedEl = null;
+}
+
+function kbDropToZone() {
+  if (!_kbPickedEl) return;
+  const em = _kbPickedEl.textContent;
+  _kbCancelPick();
+  dropItem(em);
 }
 
 /* ── DRAG & DROP (touch) ── */
@@ -192,5 +226,13 @@ function testItem(i) {
     ico.classList.add('known');  lbl.textContent = t('tr_known');   showRoboBubble('🎉');
   } else {
     ico.classList.add('unknown'); lbl.textContent = t('tr_unknown'); showRoboBubble('🤔');
+  }
+  const total   = DRAG_EMOJIS.length;
+  const tapped  = document.querySelectorAll('#tr-test-grid .known, #tr-test-grid .unknown').length;
+  if (tapped >= total) {
+    const known = document.querySelectorAll('#tr-test-grid .known').length;
+    document.getElementById('tr-test-title').textContent = t('tr_test_done').replace('{n}', known).replace('{t}', total);
+    toast(t('tr_test_done_toast').replace('{n}', known).replace('{t}', total));
+    playSound('complete');
   }
 }
