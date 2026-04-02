@@ -21,12 +21,19 @@ function initProfile() {
 
 function chkProfile() {
   const v = document.getElementById('name-in').value.trim();
-  document.getElementById('profile-go').disabled = v.length < 2;
+  document.getElementById('name-in').classList.toggle('error', false);
 }
 
 function createProfile() {
   const n = document.getElementById('name-in').value.trim();
-  if (n.length < 2) return;
+  if (n.length < 2) {
+    const inp = document.getElementById('name-in');
+    inp.classList.remove('error');
+    void inp.offsetWidth; // restart animation if already shaking
+    inp.classList.add('error');
+    inp.focus();
+    return;
+  }
   S.name = n;
   earn('first-steps');
   addXP(50);
