@@ -11,6 +11,8 @@ function loadTraining() {
   updateTrUI();
   if (S.trDone) {
     document.getElementById('tr-done').style.display = 'block';
+    const nb = document.getElementById('tr-next-btn');
+    if (nb) { nb.textContent = t('tr_next_quiz'); nb.style.display = 'block'; }
     buildTestPhase();
   }
 }
@@ -156,6 +158,8 @@ function startTraining() {
       toast(t('tr_toast'));
       btn.textContent = t('tr_done_btn');
       document.getElementById('tr-done').style.display = 'block';
+      const nb = document.getElementById('tr-next-btn');
+      if (nb) { nb.textContent = t('tr_next_quiz'); nb.style.display = 'block'; }
       setTimeout(buildTestPhase, 800);
     }
   }, 60);

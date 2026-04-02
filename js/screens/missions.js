@@ -64,4 +64,24 @@ function completeMission(id) {
   if (S.missions.length >= 3) {
     setTimeout(() => { earn('mission-master'); addXP(100); toast(t('mis_master')); save(); }, 1400);
   }
+  setTimeout(() => _showNextMissionBtn(id), 800);
+}
+
+function _showNextMissionBtn(id) {
+  const nextMap = { health: 'planet', planet: 'helper' };
+  const gw = document.querySelector('#md-game .game-wrap') ||
+             document.querySelector('#sc-final .game-wrap');
+  if (!gw) return;
+  const btn = document.createElement('button');
+  btn.className = 'btn btn-blue btn-full btn-lg';
+  btn.style.marginTop = '10px';
+  if (nextMap[id]) {
+    const nextId = nextMap[id];
+    btn.textContent = t('mis_next_' + nextId);
+    btn.onclick = () => showMission(nextId);
+  } else {
+    btn.textContent = t('mis_next_training');
+    btn.onclick = () => nav('training');
+  }
+  gw.appendChild(btn);
 }
