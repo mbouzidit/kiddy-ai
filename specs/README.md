@@ -18,6 +18,7 @@ This folder contains feature specifications for AI Lab for Kids. Write or update
 | [spec-10-badges-progression.md](spec-10-badges-progression.md) | Badges, XP levels, progression system |
 | [spec-11-i18n.md](spec-11-i18n.md) | Bilingual support (EN/FR), language toggle |
 | [spec-12-sound-effects.md](spec-12-sound-effects.md) | Sound effects — button clicks, correct/wrong, completions, badges |
+| [spec-13-reset.md](spec-13-reset.md) | Reset / New User — wipe progress and start fresh |
 
 ## Spec Format
 

@@ -34,7 +34,11 @@ function nav(id) {
 function onLoad(id) {
   if (id === 'dashboard')      loadDash();
   if (id === 'missions')       loadMissions();
-  if (id === 'mission-detail') { if (_curMission) showMission(_curMission); }
+  if (id === 'mission-detail' && _curMission) {
+    const gameOpen = document.getElementById('md-game')?.style.display === 'block';
+    showMission(_curMission, true);
+    if (gameOpen) launchMissionGame(_curMission);
+  }
   if (id === 'training')       loadTraining();
   if (id === 'quiz-intro')     loadQuizIntro();
   if (id === 'quiz')           renderQ();

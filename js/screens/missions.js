@@ -16,7 +16,7 @@ function loadMissions() {
 
 let _curMission = null;
 
-function showMission(id) {
+function showMission(id, skipNav = false) {
   _curMission = id;
   const m     = MISSIONS_DATA[id];
   const done  = S.missions.includes(id);
@@ -44,7 +44,7 @@ function showMission(id) {
     </div>
     <div id="md-game" style="display:none;padding:0 14px 16px"></div>`;
 
-  nav('mission-detail');
+  if (!skipNav) nav('mission-detail');
 }
 
 function launchMissionGame(id) {
